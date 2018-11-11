@@ -71,7 +71,7 @@ Route::get('/user/{id}', [
 ]);
 
 Route::post('/user', [
-    'uses' => 'UserController@postUser'
+    'uses' => 'UserController@signup'
 ]);
 
 Route::put('/user/{id}', [

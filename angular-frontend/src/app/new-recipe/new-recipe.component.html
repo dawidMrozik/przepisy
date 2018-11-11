@@ -1,0 +1,27 @@
+<div class="row">
+    <form class="col s12" #f="ngForm" (ngSubmit)="onSubmit(f)">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="title" name="title" type="text" class="validate" ngModel>
+          <label for="title">Tytuł przepisu</label>
+        </div>
+        <div class="input-field col s12">
+          <input id="img_url" name="img_url" type="text" class="validate" ngModel>
+          <label for="img_url">Link do zdjęcia potrawy</label>
+        </div>
+      </div>
+      <div class="row">
+          <div class="input-field col s12">
+            <textarea id="description" name="description" class="materialize-textarea" data-length="2000" ngModel></textarea>
+            <label for="description">Opis przepisu</label>
+          </div>
+      </div>
+      <div class="row">
+          <div class="input-field col s12">
+            <textarea id="preparation" name="preparation" class="materialize-textarea" data-length="2000" ngModel></textarea>
+            <label for="preparation">Kroki przygotowania</label>
+          </div>
+      </div>
+      <button type="submit" class="waves-effect waves-light btn light-green">Dodaj przepis</button>
+    </form>
+</div>

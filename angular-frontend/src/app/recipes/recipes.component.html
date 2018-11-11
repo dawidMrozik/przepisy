@@ -1,0 +1,5 @@
+<button class="btn waves-effect waves-light" (click)="onGetRecipes()">Pobierz przepisy
+        <i class="material-icons right">send</i>
+</button>
+<hr>
+<app-recipe *ngFor="let recipe of recipes" [recipe]="recipe" (recipeDeleted)="onDeleted($event)"></app-recipe>

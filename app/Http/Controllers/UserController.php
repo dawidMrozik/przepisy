@@ -4,15 +4,23 @@ use App\Models\User;
 use Illuminate\Http\Request;
 class UserController extends Controller
 {
-    public function postUser(Request $request)
+    public function signup(Request $request)
     {
-        $User = new User();
-        $User->email = $request->input('email');
-        $User->password = $request->input('password');
-        $User->detail_id = $request->input('detail_id');
-        $User->role_id = $request->input('role_id');
-        $User->save();
-        return response()->json(['User' => $User], 201);
+        $this->validate($request, [
+            'email' => 'required|email|unique:users',
+            'password' => 'required'
+        ]);
+
+        $user = new User([
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+            'role_id' => 2
+        ]);
+
+        $user->save();
+        return response()->json([
+            'message' => 'Użytkownik dodany pomyślnie!'
+        ], 201);
     }
 
     public function getUsers()
