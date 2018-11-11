@@ -53,7 +53,6 @@ export class RecipeComponent implements OnInit {
       .subscribe(
         (res: Response) => {
           this.recipeDeleted.emit(this.recipe);
-          console.log(res.message);
         }
       );
   }
