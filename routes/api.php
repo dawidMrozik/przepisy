@@ -32,15 +32,18 @@ Route::get('/recipe/{id}', [
 ]);
 
 Route::post('/recipe', [
-    'uses' => 'RecipeController@postRecipe'
+    'uses' => 'RecipeController@postRecipe',
+    'middleware' => 'auth.jwt'
 ]);
 
 Route::put('/recipe/{id}', [
-    'uses' => 'RecipeController@putRecipe'
+    'uses' => 'RecipeController@putRecipe',
+    'middleware' => 'auth.jwt'
 ]);
 
 Route::delete('/recipe/{id}', [
-    'uses' => 'RecipeController@deleteRecipe'
+    'uses' => 'RecipeController@deleteRecipe',
+    'middleware' => 'auth.jwt'
 ]);
 
 Route::get('/recipe/{id}/comments', [
@@ -72,6 +75,10 @@ Route::get('/user/{id}', [
 
 Route::post('/user', [
     'uses' => 'UserController@signup'
+]);
+
+Route::post('/user/signin', [
+    'uses' => 'UserController@signin'
 ]);
 
 Route::put('/user/{id}', [

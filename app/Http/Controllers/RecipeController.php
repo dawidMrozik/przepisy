@@ -2,10 +2,15 @@
 namespace App\Http\Controllers;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
+use JWTAuth;
+
 class RecipeController extends Controller
 {
     public function postRecipe(Request $request)
     {
+        // Dostanie się do zalogowanego usera. Będzie istniał bo middleware to sprawdził
+        //$user = JWTAuth::parseToken()->toUser();
+
         $Recipe = new Recipe();
         $Recipe->title = $request->input('title');
         $Recipe->img_url = $request->input('img_url');

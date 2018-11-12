@@ -15,9 +15,9 @@ class CreateRecepieTable extends Migration
     {
         Schema::create('Recipes', function (Blueprint $table) {
             $table->increments('id');
-            $table->char('title', 45)->nullable($value=false);
-            $table->char('img_url', 45)->nullable($value=true);
-            $table->char('description', 45)->nullable($value=true);
+            $table->text('title')->nullable($value=false);
+            $table->text('img_url')->nullable($value=true);
+            $table->text('description')->nullable($value=true);
             $table->text('preparation')->nullable($value=false);
             $table->timestamps();
             $table->integer('user_id');
