@@ -4,14 +4,16 @@ import { map } from 'rxjs/operators';
 import { Observable } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Recipe } from "./recipe.interface";
+import { AuthService } from "./auth.service";
 
 @Injectable()
 export class RecipeService {
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private authService: AuthService) {
 
     }
 
     addRecipe(title: String, img_url: String, description: String, preparation: String, user_id: number) {
+        const token = this.authService.getToken();
         const body = JSON.stringify({
             title: title,
             img_url: img_url,
@@ -20,7 +22,7 @@ export class RecipeService {
             user_id: user_id
         });
         const headers = new HttpHeaders({"Content-Type": "application/json"});
-        return this.http.post('http://przepisy.test/api/recipe', body, { headers: headers });
+        return this.http.post('http://przepisy.test/api/recipe?token=' + token, body, { headers: headers });
     }
 
     getRecipes(): Observable<any> {

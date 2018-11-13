@@ -9,13 +9,18 @@ import { NewRecipeComponent } from './new-recipe/new-recipe.component';
 import { RecipesComponent } from './recipes/recipes.component';
 import { routing } from './app.routing';
 import { RecipeService } from './recipe.service';
+import { SignupComponent } from './signup/signup.component';
+import { SigninComponent } from './signin/signin.component';
+import { AuthService } from './auth.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     RecipeComponent,
     NewRecipeComponent,
-    RecipesComponent
+    RecipesComponent,
+    SignupComponent,
+    SigninComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +28,7 @@ import { RecipeService } from './recipe.service';
     FormsModule,
     routing
   ],
-  providers: [RecipeService],
+  providers: [RecipeService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -23,7 +23,7 @@ class UserController extends Controller
         ]);
 
         $user->save();
-        return $response()->json([
+        return response()->json([
             'message' => 'Użytkownik dodany pomyślnie!'
         ], 201);
     }

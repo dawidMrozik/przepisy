@@ -17,7 +17,8 @@ export class RecipesComponent implements OnInit {
 
   onGetRecipes() {
     this.recipeService.getRecipes()
-      .subscribe(response => this.recipes = response.Recipes);
+      .subscribe(
+        (recipes: Recipe) => this.recipes = recipes['Recipes']);
   }
 
   onDeleted(recipe: Recipe) {
