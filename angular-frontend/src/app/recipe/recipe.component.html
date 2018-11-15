@@ -19,16 +19,18 @@
             </div>
         </div>
             <br>
-            <div *ngIf="editing">
-              <textarea [(ngModel)]="titleEditValue" class="materialize-textarea"></textarea>
-              <textarea [(ngModel)]="descriptionEditValue" class="materialize-textarea" data-length="2000"></textarea>
-              <textarea [(ngModel)]="preparationEditValue" class="materialize-textarea" data-length="2000"></textarea>
-              <a (click)="onUpdate()" class="waves-effect waves-light btn-small">Zapisz</a>
-              <a (click)="onCancel()" class="waves-effect waves-light btn-small">Anuluj</a>
-            </div>
-            <div *ngIf="!editing">
-              <a (click)="onEdit()" class="waves-effect waves-light btn-small">Edytuj</a>
-              <a (click)="onDelete()" class="waves-effect waves-light btn-small">Usuń</a>
+            <div *ngIf="isOwner">
+              <div *ngIf="editing">
+                <textarea [(ngModel)]="titleEditValue" class="materialize-textarea"></textarea>
+                <textarea [(ngModel)]="descriptionEditValue" class="materialize-textarea" data-length="2000"></textarea>
+                <textarea [(ngModel)]="preparationEditValue" class="materialize-textarea" data-length="2000"></textarea>
+                <a (click)="onUpdate()" class="waves-effect waves-light btn-small">Zapisz</a>
+                <a (click)="onCancel()" class="waves-effect waves-light btn-small">Anuluj</a>
+              </div>
+              <div *ngIf="!editing">
+                <a (click)="onEdit()" class="waves-effect waves-light btn-small">Edytuj</a>
+                <a (click)="onDelete()" class="waves-effect waves-light btn-small">Usuń</a>
+              </div>
             </div>
       </div>
     </li>

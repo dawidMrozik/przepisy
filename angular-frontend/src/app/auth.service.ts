@@ -1,10 +1,11 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { map } from 'rxjs/operators';
+import { Router } from "@angular/router";
 
 @Injectable()
 export class AuthService {
-    constructor(private http: HttpClient){
+    constructor(private http: HttpClient, private router: Router){
 
     }
 
@@ -19,15 +20,28 @@ export class AuthService {
         .pipe(map(
             (response: Response) => {
                 const token = response['token'];
-                const base64Url = token.split('.')[1];
-                const base64 = base64Url.replace('-', '+').replace('_', "/");
+                const decoded = this.decodeToken(token);
                 localStorage.setItem('token', token);
-                return {token: token, decoded: JSON.parse(window.atob(base64))};
+                return {token: token, decoded: decoded};
             }
         ))
     }
 
     getToken() {
         return localStorage.getItem('token');
+    }
+
+    private decodeToken(token: String) {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace('-', '+').replace('_', "/");
+        return JSON.parse(window.atob(base64));
+    }
+
+    getUser() {
+        const token = this.getToken();
+        const decoded = this.decodeToken(token);
+        if(token) {
+            return this.http.get('http://przepisy.test/api/user/' + decoded.sub);
+        }
     }
 }

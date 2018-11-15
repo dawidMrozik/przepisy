@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../recipe.interface';
 import { RecipeService } from '../recipe.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-recipes',
@@ -10,7 +11,7 @@ import { RecipeService } from '../recipe.service';
 export class RecipesComponent implements OnInit {
   recipes: Recipe[];
 
-  constructor(private recipeService: RecipeService) { }
+  constructor(private recipeService: RecipeService, private authService: AuthService) { }
 
   ngOnInit() {
   }
@@ -28,6 +29,5 @@ export class RecipesComponent implements OnInit {
       }
     );
     this.recipes.splice(position, 1);
-  }
-
+    }
 }

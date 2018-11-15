@@ -1,13 +1,14 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Recipe } from '../recipe.interface';
 import { RecipeService } from '../recipe.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-recipe',
   templateUrl: './recipe.component.html',
   styleUrls: ['./recipe.component.css']
 })
-export class RecipeComponent implements OnInit {
+export class RecipeComponent {
   @Input() recipe: Recipe;
   @Output() recipeDeleted = new EventEmitter<Recipe>();
   editing: boolean = false;
@@ -15,10 +16,29 @@ export class RecipeComponent implements OnInit {
   descriptionEditValue: String = '';
   preparationEditValue: String = '';
   imgEditValue: String = '';
+  isOwner: Boolean;
+  userId: number;
 
-  constructor(private recipeService: RecipeService) { }
+  constructor(private recipeService: RecipeService, private authService: AuthService) { }
 
   ngOnInit() {
+    this.authService.getUser()
+      .subscribe(
+        (response: Response) => {
+          this.userId = response['User']['id'];
+          console.log(this.userId);
+          console.log(this.recipe.user_id);
+          this.checkIfOnwer();
+        }
+      );
+  }
+
+  private checkIfOnwer() {
+    if(this.recipe.user_id == this.userId) {
+      this.isOwner = true;
+    } else {
+       this.isOwner = false;
+    }
   }
 
   onEdit() {

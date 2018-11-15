@@ -42,6 +42,7 @@ export class RecipeService {
     }
 
     deleteRecipe(id: number) {
-        return this.http.delete('http://przepisy.test/api/recipe/' + id);
+        const token = this.authService.getToken();
+        return this.http.delete('http://przepisy.test/api/recipe/' + id + '?token=' + token);
     }
 }

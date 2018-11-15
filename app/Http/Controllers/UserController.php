@@ -48,6 +48,7 @@ class UserController extends Controller
                 'error' => 'Nie mogę stworzyć tokenu :('
             ], 500);
         }
+
         return response()->json([
             'token' => $token
         ], 200);
