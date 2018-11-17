@@ -1,0 +1,14 @@
+<p>
+  {{ comment.content }}
+</p>
+<div *ngIf="isOwner" class="right">
+  <div *ngIf="editing">
+    <textarea [(ngModel)]="contentEditValue" class="materialize-textarea"></textarea>
+    <a (click)="onUpdate()" class="waves-effect waves-light btn-small">Zapisz</a>
+    <a (click)="onCancel()" class="waves-effect waves-light btn-small">Anuluj</a>
+  </div>
+  <div *ngIf="!editing">
+    <a (click)="onEdit()" class="waves-effect waves-light btn-small">Edytuj</a>
+    <a (click)="onDelete()" class="waves-effect waves-light btn-small">Usuń</a>
+  </div>
+</div>

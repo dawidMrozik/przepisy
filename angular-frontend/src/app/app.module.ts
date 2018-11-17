@@ -12,6 +12,12 @@ import { RecipeService } from './recipe.service';
 import { SignupComponent } from './signup/signup.component';
 import { SigninComponent } from './signin/signin.component';
 import { AuthService } from './auth.service';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
+import { CommentsComponent } from './comments/comments.component';
+import { CommentComponent } from './comment/comment.component';
+import { CommentService } from './comment.service';
+import { NewCommentComponent } from './new-comment/new-comment.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +26,12 @@ import { AuthService } from './auth.service';
     NewRecipeComponent,
     RecipesComponent,
     SignupComponent,
-    SigninComponent
+    SigninComponent,
+    NotFoundComponent,
+    RecipeDetailComponent,
+    CommentsComponent,
+    CommentComponent,
+    NewCommentComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +39,7 @@ import { AuthService } from './auth.service';
     FormsModule,
     routing
   ],
-  providers: [RecipeService, AuthService],
+  providers: [RecipeService, AuthService, CommentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

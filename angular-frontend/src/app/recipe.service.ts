@@ -8,12 +8,12 @@ import { AuthService } from "./auth.service";
 
 @Injectable()
 export class RecipeService {
+    token: String;
     constructor(private http: HttpClient, private authService: AuthService) {
-
+        this.token = this.authService.getToken();
     }
 
     addRecipe(title: String, img_url: String, description: String, preparation: String, user_id: number) {
-        const token = this.authService.getToken();
         const body = JSON.stringify({
             title: title,
             img_url: img_url,
@@ -22,11 +22,15 @@ export class RecipeService {
             user_id: user_id
         });
         const headers = new HttpHeaders({"Content-Type": "application/json"});
-        return this.http.post('http://przepisy.test/api/recipe?token=' + token, body, { headers: headers });
+        return this.http.post('http://przepisy.test/api/recipe?token=' + this.token, body, { headers: headers });
     }
 
     getRecipes(): Observable<any> {
         return this.http.get('http://przepisy.test/api/recipes');
+    }
+
+    getRecipe(id: number) {
+        return this.http.get('http://przepisy.test/api/recipe/' + id);
     }
 
     updateRecipe(id: number, title: String, img_url: String, description: String, preparation: String, user_id: number) {
@@ -38,11 +42,10 @@ export class RecipeService {
             user_id: user_id
         });
         const headers = new HttpHeaders({"Content-Type": "application/json"});
-        return this.http.put('http://przepisy.test/api/recipe/' + id, body, { headers: headers });
+        return this.http.put('http://przepisy.test/api/recipe/' + id + '?token=' + this.token, body, { headers: headers });
     }
 
     deleteRecipe(id: number) {
-        const token = this.authService.getToken();
-        return this.http.delete('http://przepisy.test/api/recipe/' + id + '?token=' + token);
+        return this.http.delete('http://przepisy.test/api/recipe/' + id + '?token=' + this.token);
     }
 }

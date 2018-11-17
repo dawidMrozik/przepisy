@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { RecipeService } from '../recipe.service';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-recipe',
@@ -11,7 +12,7 @@ import { AuthService } from '../auth.service';
 export class NewRecipeComponent implements OnInit {
   userId: number;
 
-  constructor(private recipeService: RecipeService, private authService: AuthService) { }
+  constructor(private recipeService: RecipeService, private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.authService.getUser()
@@ -22,11 +23,13 @@ export class NewRecipeComponent implements OnInit {
     );
   }
 
-  //TODO: Dodaj user id zalogowanego użytkownika
   onSubmit(form: NgForm) {
     this.recipeService.addRecipe(form.value.title, form.value.img_url, form.value.description, form.value.preparation, this.userId)
       .subscribe(
-        () => alert('Przepis dodany! :)')
+        () => {
+          alert('Przepis dodany! :)');
+          this.router.navigate['/przepisy'];
+        }
       );
     form.resetForm();
   }

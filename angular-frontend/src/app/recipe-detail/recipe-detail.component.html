@@ -1,0 +1,34 @@
+<div *ngIf="!editing">
+  <img [src]="recipeDetails.img_url" width="300" height="200">
+  <p>
+    {{ recipeDetails.title }}
+  </p>
+  <p>
+    {{ recipeDetails.description }}
+  </p>
+  <p>
+    {{ recipeDetails.preparation }}
+  </p>
+  <p>
+    {{ recipeDetails.created_at }}
+  </p>
+  <p>
+    {{ recipeDetails.updated_at }}
+  </p>
+</div>
+<div *ngIf="isOwner">
+    <div *ngIf="editing">
+      <textarea [(ngModel)]="titleEditValue" class="materialize-textarea"></textarea>
+      <textarea [(ngModel)]="imgEditValue" class="materialize-textarea"></textarea>
+      <textarea [(ngModel)]="descriptionEditValue" class="materialize-textarea" data-length="2000" rows="7"></textarea>
+      <textarea [(ngModel)]="preparationEditValue" class="materialize-textarea" data-length="2000" rows="7"></textarea>
+      <a (click)="onUpdate()" class="waves-effect waves-light btn-small">Zapisz</a>
+      <a (click)="onCancel()" class="waves-effect waves-light btn-small">Anuluj</a>
+    </div>
+    <div *ngIf="!editing">
+      <a (click)="onEdit()" class="waves-effect waves-light btn-small">Edytuj</a>
+      <a (click)="onDelete()" class="waves-effect waves-light btn-small">Usuń</a>
+    </div>
+</div>
+<hr>
+<app-comments *ngIf="loadComments" [recipeId]="recipeDetails.id" [userId]="userId"></app-comments>

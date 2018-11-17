@@ -1,0 +1,11 @@
+<div class="row">
+  <form class="col s12" #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="content" name="content" type="text" class="validate" ngModel>
+        <label for="content">Nowy komentarz</label>
+      </div>
+    </div>
+    <button type="submit" class="waves-effect waves-light btn light-green">Dodaj komentarz</button>
+  </form>
+</div>

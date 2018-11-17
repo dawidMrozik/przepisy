@@ -66,7 +66,8 @@ Route::get('/recipe/{id}/ingredients', [
 // | Users Routes
 // |--------------------------------------------------------------------------
 Route::get('/users', [
-    'uses' => 'UserController@getUsers'
+    'uses' => 'UserController@getUsers',
+    'middleware' => 'auth.jwt'
 ]);
 
 Route::get('/user/{id}', [
@@ -86,7 +87,8 @@ Route::put('/user/{id}', [
 ]);
 
 Route::delete('/user/{id}', [
-    'uses' => 'UserController@deleteUser'
+    'uses' => 'UserController@deleteUser',
+    'middleware' => 'auth.jwt'
 ]);
 
 Route::get('/user/{id}/details', [
@@ -140,15 +142,18 @@ Route::get('/comment/{id}', [
 ]);
 
 Route::post('/comment', [
-    'uses' => 'CommentController@postComment'
+    'uses' => 'CommentController@postComment',
+    'middleware' => 'auth.jwt'
 ]);
 
 Route::put('/comment/{id}', [
-    'uses' => 'CommentController@putComment'
+    'uses' => 'CommentController@putComment',
+    'middleware' => 'auth.jwt'
 ]);
 
 Route::delete('/comment/{id}', [
-    'uses' => 'CommentController@deleteComment'
+    'uses' => 'CommentController@deleteComment',
+    'middleware' => 'auth.jwt'
 ]);
 // |--------------------------------------------------------------------------
 // | Comments Routes End

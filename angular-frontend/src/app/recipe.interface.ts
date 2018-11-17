@@ -1,10 +1,10 @@
 export interface Recipe {
   Recipe: Recipe;
     id: number;
-    title: String;
-    img_url: String;
-    description: String;
-    preparation: String;
+    title: string;
+    img_url: string;
+    description: string;
+    preparation: string;
     created_at: Date;
     updated_at: Date;
     user_id: number;

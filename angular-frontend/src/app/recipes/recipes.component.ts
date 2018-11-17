@@ -14,20 +14,12 @@ export class RecipesComponent implements OnInit {
   constructor(private recipeService: RecipeService, private authService: AuthService) { }
 
   ngOnInit() {
+    this.getRecipes();
   }
 
-  onGetRecipes() {
+  getRecipes() {
     this.recipeService.getRecipes()
       .subscribe(
         (recipes: Recipe) => this.recipes = recipes['Recipes']);
   }
-
-  onDeleted(recipe: Recipe) {
-    const position = this.recipes.findIndex(
-      (recipeEl: Recipe) => {
-        return recipeEl.id == recipe.id;
-      }
-    );
-    this.recipes.splice(position, 1);
-    }
 }
