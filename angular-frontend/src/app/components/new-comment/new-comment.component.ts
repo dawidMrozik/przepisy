@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CommentService } from '../comment.service';
+import { CommentService } from '../../services/comment.service';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-new-comment',

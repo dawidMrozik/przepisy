@@ -4,20 +4,23 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { RecipeComponent } from './recipe/recipe.component';
-import { NewRecipeComponent } from './new-recipe/new-recipe.component';
-import { RecipesComponent } from './recipes/recipes.component';
+import { RecipeComponent } from './components/recipe/recipe.component';
+import { NewRecipeComponent } from './components/new-recipe/new-recipe.component';
+import { RecipesComponent } from './components/recipes/recipes.component';
 import { routing } from './app.routing';
-import { RecipeService } from './recipe.service';
-import { SignupComponent } from './signup/signup.component';
-import { SigninComponent } from './signin/signin.component';
-import { AuthService } from './auth.service';
-import { NotFoundComponent } from './not-found/not-found.component';
-import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
-import { CommentsComponent } from './comments/comments.component';
-import { CommentComponent } from './comment/comment.component';
-import { CommentService } from './comment.service';
-import { NewCommentComponent } from './new-comment/new-comment.component';
+import { RecipeService } from './services/recipe.service';
+import { SignupComponent } from './components/signup/signup.component';
+import { SigninComponent } from './components/signin/signin.component';
+import { AuthService } from './services/auth.service';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { RecipeDetailComponent } from './components/recipe-detail/recipe-detail.component';
+import { CommentsComponent } from './components/comments/comments.component';
+import { CommentComponent } from './components/comment/comment.component';
+import { CommentService } from './services/comment.service';
+import { NewCommentComponent } from './components/new-comment/new-comment.component';
+import { IngredientsComponent } from './components/ingredients/ingredients.component';
+import { IngredientComponent } from './components/ingredient/ingredient.component';
+import { IngredientService } from './services/ingredient.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,9 @@ import { NewCommentComponent } from './new-comment/new-comment.component';
     RecipeDetailComponent,
     CommentsComponent,
     CommentComponent,
-    NewCommentComponent
+    NewCommentComponent,
+    IngredientsComponent,
+    IngredientComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +44,7 @@ import { NewCommentComponent } from './new-comment/new-comment.component';
     FormsModule,
     routing
   ],
-  providers: [RecipeService, AuthService, CommentService],
+  providers: [RecipeService, AuthService, CommentService, IngredientService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

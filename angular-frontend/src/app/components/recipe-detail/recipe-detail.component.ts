@@ -1,8 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Recipe } from '../recipe.interface';
-import { RecipeService } from '../recipe.service';
+import { Recipe } from '../../models/recipe.interface';
+import { RecipeService } from '../../services/recipe.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -19,6 +19,7 @@ export class RecipeDetailComponent implements OnInit {
   isOwner: Boolean;
   userId: number;
   loadComments: boolean = false;
+  loadIngredients: boolean = false;
 
   constructor(
     private recipeService: RecipeService,
@@ -40,7 +41,10 @@ export class RecipeDetailComponent implements OnInit {
         this.checkIfOnwer();
       },
       error => console.log(error),
-      () => this.loadComments = true
+      () => {
+        this.loadComments = true;
+        this.loadIngredients = true;
+      }
     );
   }
 

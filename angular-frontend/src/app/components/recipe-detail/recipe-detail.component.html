@@ -15,6 +15,7 @@
   <p>
     {{ recipeDetails.updated_at }}
   </p>
+  <app-ingredients [recipeId]="recipeDetails.id" [userId]="userId" *ngIf="loadIngredients"></app-ingredients>
 </div>
 <div *ngIf="isOwner">
     <div *ngIf="editing">

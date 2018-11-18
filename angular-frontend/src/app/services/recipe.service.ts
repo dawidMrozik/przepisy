@@ -3,7 +3,7 @@ import { Http, Response, Headers } from "@angular/http";
 import { map } from 'rxjs/operators';
 import { Observable } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Recipe } from "./recipe.interface";
+import { Recipe } from "../models/recipe.interface";
 import { AuthService } from "./auth.service";
 
 @Injectable()
