@@ -7,6 +7,7 @@ import { SigninComponent } from './components/signin/signin.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { RecipeDetailComponent } from './components/recipe-detail/recipe-detail.component';
 import { NewCommentComponent } from './components/new-comment/new-comment.component';
+import { NewIngredientComponent } from './components/new-ingredient/new-ingredient.component';
 
 const APP_ROUTES: Routes = [
     { path: '', component: RecipesComponent},
@@ -14,6 +15,8 @@ const APP_ROUTES: Routes = [
     { path: 'przepis/nowy', component: NewRecipeComponent},
     { path: 'przepis/:id', component: RecipeDetailComponent},
     { path: 'przepis/komentarz/nowy/:id', component: NewCommentComponent },
+    { path: 'składnik/nowy', component: NewIngredientComponent },
+    { path: 'składnik/nowy/:id', component: NewIngredientComponent },
     { path: 'rejestracja', component: SignupComponent},
     { path: 'logowanie', component: SigninComponent},
     { path: '**', component: NotFoundComponent}

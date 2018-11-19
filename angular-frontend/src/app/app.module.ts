@@ -21,6 +21,8 @@ import { NewCommentComponent } from './components/new-comment/new-comment.compon
 import { IngredientsComponent } from './components/ingredients/ingredients.component';
 import { IngredientComponent } from './components/ingredient/ingredient.component';
 import { IngredientService } from './services/ingredient.service';
+import { NewIngredientsComponent } from './components/new-ingredients/new-ingredients.component';
+import { NewIngredientComponent } from './components/new-ingredient/new-ingredient.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { IngredientService } from './services/ingredient.service';
     CommentComponent,
     NewCommentComponent,
     IngredientsComponent,
-    IngredientComponent
+    IngredientComponent,
+    NewIngredientsComponent,
+    NewIngredientComponent
   ],
   imports: [
     BrowserModule,

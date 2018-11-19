@@ -17,12 +17,11 @@ class CreateIngredientsTable extends Migration
             $table->increments('id');
             $table->char('name', 45)->nullable($value=false);
             $table->integer('carbs')->nullable($value=false);
-            $table->integer('protein')->nullable($value=false);
-            $table->integer('fat')->nullable($value=false);
+            $table->integer('proteins')->nullable($value=false);
+            $table->integer('fats')->nullable($value=false);
             $table->integer('calories')->nullable($value=false);
             $table->timestamps();
             $table->integer('count_id');
-            $table->integer('recipe_id');
         });
     }
 

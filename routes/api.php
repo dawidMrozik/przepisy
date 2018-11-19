@@ -55,7 +55,18 @@ Route::get('/recipe/{id}/ratings', [
 ]);
 
 Route::get('/recipe/{id}/ingredients', [
-    'uses' => 'RecipeController@getRecipeIngredients'
+    'uses' => 'RecipeController@getRecipeIngredients',
+    'middleware' => 'auth.jwt'
+]);
+
+Route::post('/recipe/{id}/ingredients/attach', [
+    'uses' => 'RecipeController@attachIngredientToRecipe',
+    'middleware' => 'auth.jwt'
+]);
+
+Route::delete('/recipe/{recipe_id}/ingredient/{ingredient_id}/detach', [
+    'uses' => 'RecipeController@detachIngredientFromRecipe',
+    'middleware' => 'auth.jwt'
 ]);
 // |--------------------------------------------------------------------------
 // | Recipes Routes End
@@ -104,7 +115,8 @@ Route::get('/user/{id}/details', [
 // | Ingredients Routes
 // |--------------------------------------------------------------------------
 Route::get('/ingredients', [
-    'uses' => 'IngredientController@getIngredients'
+    'uses' => 'IngredientController@getIngredients',
+    'middleware' => 'auth.jwt'
 ]);
 
 Route::get('/ingredient/{id}', [
@@ -112,7 +124,8 @@ Route::get('/ingredient/{id}', [
 ]);
 
 Route::post('/ingredient', [
-    'uses' => 'IngredientController@postIngredient'
+    'uses' => 'IngredientController@postIngredient',
+    'middleware' => 'auth.jwt'
 ]);
 
 Route::put('/ingredient/{id}', [
@@ -126,6 +139,11 @@ Route::delete('/ingredient/{id}', [
 Route::get('/ingredient/{id}/count', [
     'uses' => 'IngredientController@getIngredientsCount'
 ]);
+
+Route::get('/ingredient/{id}/recipes', [
+    'uses' => 'IngredientController@getIngredientRecipes'
+]);
+
 // |--------------------------------------------------------------------------
 // | Ingredients Routes End
 // |--------------------------------------------------------------------------

@@ -14,7 +14,7 @@ class Recipe extends Model
 
     public function ingredients()
     {
-        return $this->hasMany('App\Models\Ingredient');
+        return $this->belongsToMany('App\Models\Ingredient');
         
     }
 

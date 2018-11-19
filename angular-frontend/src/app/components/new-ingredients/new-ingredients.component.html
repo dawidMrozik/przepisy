@@ -1,0 +1,6 @@
+<ul>
+  <li *ngFor="let ingredient of newIngredients">
+    {{ ingredient.name }}
+    <input type="button" (click)="onAddIngredient(ingredient)" value="+" />
+  </li>
+</ul>

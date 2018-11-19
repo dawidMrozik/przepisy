@@ -1,35 +1,64 @@
-<div *ngIf="!editing">
-  <img [src]="recipeDetails.img_url" width="300" height="200">
-  <p>
-    {{ recipeDetails.title }}
-  </p>
-  <p>
-    {{ recipeDetails.description }}
-  </p>
-  <p>
-    {{ recipeDetails.preparation }}
-  </p>
-  <p>
-    {{ recipeDetails.created_at }}
-  </p>
-  <p>
-    {{ recipeDetails.updated_at }}
-  </p>
-  <app-ingredients [recipeId]="recipeDetails.id" [userId]="userId" *ngIf="loadIngredients"></app-ingredients>
+<div class="row" *ngIf="loadComponent">
+  <div *ngIf="!editing">
+    <img src="{{ recipeDetails?.img_url }}" width="300" height="200">
+    <h2>
+      {{ recipeDetails.title }}
+    </h2>
+    <h3>
+      Kalorie przepisu: {{ recipeDetails.calories }}
+    </h3>
+    <p>
+      {{ recipeDetails.description }}
+    </p>
+    <p>
+      {{ recipeDetails.preparation }}
+    </p>
+    <p>
+      {{ recipeDetails.created_at }}
+    </p>
+    <p>
+      {{ recipeDetails.updated_at }}
+    </p>
+    <h4>Składniki:</h4>
+    <app-ingredients [recipeId]="recipeDetails.id" [userId]="userId" *ngIf="loadIngredients"></app-ingredients>
+  </div>
+  <div *ngIf="isOwner">
+      <div *ngIf="editing">
+        <textarea [(ngModel)]="titleEditValue" class="materialize-textarea"></textarea>
+        <textarea [(ngModel)]="imgEditValue" class="materialize-textarea"></textarea>
+        <textarea [(ngModel)]="descriptionEditValue" class="materialize-textarea" data-length="2000" rows="7"></textarea>
+        <textarea [(ngModel)]="preparationEditValue" class="materialize-textarea" data-length="2000" rows="7"></textarea>
+          <input type="button" value="Edytuj składniki" (click)="onEditIngredients()" class="waves-effect waves-light btn-small">
+            <div *ngIf="editingIngredients">
+                Składniki należące do przepisu:
+                <app-ingredients [recipeId]="recipeDetails.id" [userId]="userId" *ngIf="loadIngredients"></app-ingredients>
+              <a [routerLink]="[ '/składnik/nowy', recipeDetails.id ]" class="waves-effect waves-light btn-small">Dodaj nowy składnik do bazy</a>
+              <input type="button" value="Dodaj istniejący składnik" (click)="onAddExistingIngredient()" class="waves-effect waves-light btn-small">
+              <form (ngSubmit)="onSubmitIngredients(g)" #g="ngForm" *ngIf="addExistingIngredient">
+                  <ul>
+                    <li *ngFor="let ingredient of ingredients, let i = index">
+                      {{ ingredient.name }}
+                      <input type="button" value="+" (click)="onAddIngredient(ingredient, i)"/>
+                    </li>
+                  </ul>
+                </form>
+                
+                <ul class="right">
+                  Dodane składniki
+                  <li *ngFor="let recipeIngredient of recipeIngredients, let i = index">
+                    {{ recipeIngredient.name }}
+                    <input type="button" value="+" (click)="onDeleteEditIngredient(i)"/>
+                  </li>
+                  Kalorie: {{ sumOfIngredientCalories }}
+                </ul>
+            </div>
+        <a (click)="onUpdate()" class="waves-effect waves-light btn-small">Zapisz</a>
+        <a (click)="onCancel()" class="waves-effect waves-light btn-small">Anuluj</a>
+      </div>
+      <div *ngIf="!editing">
+        <a (click)="onEdit()" class="waves-effect waves-light btn-small">Edytuj</a>
+        <a (click)="onDelete()" class="waves-effect waves-light btn-small">Usuń</a>
+        <app-comments *ngIf="loadComments" [recipeId]="recipeDetails.id" [userId]="userId"></app-comments>
+      </div>
+  </div>
 </div>
-<div *ngIf="isOwner">
-    <div *ngIf="editing">
-      <textarea [(ngModel)]="titleEditValue" class="materialize-textarea"></textarea>
-      <textarea [(ngModel)]="imgEditValue" class="materialize-textarea"></textarea>
-      <textarea [(ngModel)]="descriptionEditValue" class="materialize-textarea" data-length="2000" rows="7"></textarea>
-      <textarea [(ngModel)]="preparationEditValue" class="materialize-textarea" data-length="2000" rows="7"></textarea>
-      <a (click)="onUpdate()" class="waves-effect waves-light btn-small">Zapisz</a>
-      <a (click)="onCancel()" class="waves-effect waves-light btn-small">Anuluj</a>
-    </div>
-    <div *ngIf="!editing">
-      <a (click)="onEdit()" class="waves-effect waves-light btn-small">Edytuj</a>
-      <a (click)="onDelete()" class="waves-effect waves-light btn-small">Usuń</a>
-    </div>
-</div>
-<hr>
-<app-comments *ngIf="loadComments" [recipeId]="recipeDetails.id" [userId]="userId"></app-comments>

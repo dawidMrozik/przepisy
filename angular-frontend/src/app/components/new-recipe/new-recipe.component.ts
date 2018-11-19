@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { RecipeService } from '../../services/recipe.service';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Ingredient } from 'src/app/models/ingredient.interface';
+import { IngredientService } from 'src/app/services/ingredient.service';
 
 @Component({
   selector: 'app-new-recipe',
@@ -11,8 +13,18 @@ import { Router } from '@angular/router';
 })
 export class NewRecipeComponent implements OnInit {
   userId: number;
+  newIngredient: boolean;
+  ingredients: Ingredient[];
+  recipeIngredients: Ingredient[] = [];
+  newRecipeId: number;
+  sumOfIngredientCalories: number = 0;
 
-  constructor(private recipeService: RecipeService, private authService: AuthService, private router: Router) { }
+  constructor(
+    private recipeService: RecipeService,
+    private authService: AuthService, 
+    private route: ActivatedRoute,
+    private ingredientService: IngredientService
+    ) { }
 
   ngOnInit() {
     this.authService.getUser()
@@ -21,14 +33,35 @@ export class NewRecipeComponent implements OnInit {
         this.userId = response['User']['id'];
       }
     );
+
+    this.ingredientService.getIngredients()
+      .subscribe(
+        (response: Response) => this.ingredients = response['Ingredients']
+      );
+  }
+
+  onAddIngredients() {
+    this.newIngredient = true;
+  }
+
+  onAddIngredient(ingredient: Ingredient, index: number) {
+    this.recipeIngredients.push(ingredient);
+    this.ingredients.splice(index, 1);
+    this.sumOfIngredientCalories += ingredient.calories;
   }
 
   onSubmit(form: NgForm) {
-    this.recipeService.addRecipe(form.value.title, form.value.img_url, form.value.description, form.value.preparation, this.userId)
+    this.recipeService.addRecipe(form.value.title, form.value.img_url, form.value.description, form.value.preparation, this.sumOfIngredientCalories ,this.userId)
       .subscribe(
+        (response: Response) => {
+          this.newRecipeId = response['Recipe']['id'];
+        },
+        (error) => console.log(error),
         () => {
-          alert('Przepis dodany! :)');
-          this.router.navigate['/przepisy'];
+          this.ingredientService.attachIngredient(this.recipeIngredients, this.newRecipeId)
+            .subscribe(
+              (response: Response) => console.log(response)
+            );
         }
       );
     form.resetForm();

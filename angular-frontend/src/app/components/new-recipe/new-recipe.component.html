@@ -22,6 +22,26 @@
             <label for="preparation">Kroki przygotowania</label>
           </div>
       </div>
+      <button (click)="onAddIngredients()" class="waves-effect waves-light btn light-green" *ngIf="!newIngredient">Dodaj składniki</button>
       <button type="submit" class="waves-effect waves-light btn light-green">Dodaj przepis</button>
-    </form>
+     </form>
+     <div *ngIf="newIngredient">
+      <form (ngSubmit)="onSubmitIngredients(g)" #g="ngForm">
+        <ul>
+          <li *ngFor="let ingredient of ingredients, let i = index">
+            {{ ingredient.name }}
+            <input type="button" value="+" (click)="onAddIngredient(ingredient, i)"/>
+          </li>
+        </ul>
+      </form>
+      
+      <ul class="right">
+        Dodane składniki
+        <li *ngFor="let recipeIngredient of recipeIngredients">
+          {{ recipeIngredient.name }}
+        </li>
+        Kalorie: {{ sumOfIngredientCalories }}
+      </ul>
+      <a [routerLink]="[ '/składnik/nowy' ]" class="waves-effect waves-light btn light-green">Dodaj nowy składnik do bazy</a>
+      </div>
 </div>

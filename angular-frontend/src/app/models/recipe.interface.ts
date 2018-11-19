@@ -5,6 +5,7 @@ export interface Recipe {
     img_url: string;
     description: string;
     preparation: string;
+    calories: number;
     created_at: Date;
     updated_at: Date;
     user_id: number;

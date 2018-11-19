@@ -3,6 +3,8 @@ import { Recipe } from '../../models/recipe.interface';
 import { RecipeService } from '../../services/recipe.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { IngredientService } from 'src/app/services/ingredient.service';
+import { Ingredient } from 'src/app/models/ingredient.interface';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -16,14 +18,23 @@ export class RecipeDetailComponent implements OnInit {
   descriptionEditValue: String = '';
   preparationEditValue: String = '';
   imgEditValue: String = '';
+  caloriesEditValue: number;
   isOwner: Boolean;
   userId: number;
   loadComments: boolean = false;
   loadIngredients: boolean = false;
+  loadComponent: boolean = false;
+  ingredients: Ingredient[] = [];
+  editingIngredients: boolean = false;
+  recipeIngredients: Ingredient[] = [];
+  editRecipeIngredients: Ingredient[] = [];
+  addExistingIngredient: boolean = false;
+  sumOfIngredientCalories: number = 0;
 
   constructor(
     private recipeService: RecipeService,
     private authService: AuthService,
+    private ingredientService: IngredientService,
     private route: ActivatedRoute,
     private router: Router,
     ) { }
@@ -31,21 +42,24 @@ export class RecipeDetailComponent implements OnInit {
   ngOnInit() {
     this.recipeService.getRecipe(this.route.snapshot.params['id'])
       .subscribe(
-        (recipe: Recipe) => this.recipeDetails = recipe['Recipe']
+        (recipe: Recipe) => this.recipeDetails = recipe['Recipe'],
+        (error) => console.log(error),
+        () => {
+          this.loadComponent = true;
+          this.authService.getUser()
+          .subscribe(
+            (response: Response) => {
+              this.userId = response['User']['id'];
+              this.checkIfOnwer();
+            },
+            error => console.log(error),
+            () => {
+              this.loadComments = true;
+              this.loadIngredients = true;
+            }
+          );
+        }
       );
-    
-    this.authService.getUser()
-    .subscribe(
-      (response: Response) => {
-        this.userId = response['User']['id'];
-        this.checkIfOnwer();
-      },
-      error => console.log(error),
-      () => {
-        this.loadComments = true;
-        this.loadIngredients = true;
-      }
-    );
   }
 
   private checkIfOnwer() {
@@ -58,11 +72,32 @@ export class RecipeDetailComponent implements OnInit {
     this.descriptionEditValue = this.recipeDetails.description;
     this.preparationEditValue = this.recipeDetails.preparation;
     this.imgEditValue = this.recipeDetails.img_url;
+    this.caloriesEditValue = this.recipeDetails.calories;
   }
 
-  //TODO: dodaj id zalogowanego użytkownika
+  onEditIngredients() {
+    this.editingIngredients = true;
+    this.ingredientService.getRecipeIngredients(this.recipeDetails.id)
+      .subscribe(
+        (response: Response) => {
+          this.editRecipeIngredients = response['RecipeIngredients'];
+        }
+      )
+  }
+
+  onCancelEditIngredients() {
+    this.editingIngredients = false;
+  }
+  
+  onDeleteIngredient(ingredient_id: number) {
+    this.ingredientService.deleteIngredient(this.recipeDetails.id, ingredient_id)
+      .subscribe(
+        (response: Response) => console.log(response['message'])
+      )
+  }
+
   onUpdate() {
-    this.recipeService.updateRecipe(this.recipeDetails.id, this.titleEditValue, this.imgEditValue, this.descriptionEditValue, this.preparationEditValue, this.userId)
+    this.recipeService.updateRecipe(this.recipeDetails.id, this.titleEditValue, this.imgEditValue, this.descriptionEditValue, this.preparationEditValue, this.caloriesEditValue, this.userId)
       .subscribe(
         (Recipe: Recipe) => {
           this.recipeDetails = Recipe.Recipe;
@@ -70,6 +105,13 @@ export class RecipeDetailComponent implements OnInit {
           this.descriptionEditValue = '';
           this.preparationEditValue = '';
           this.imgEditValue = '';
+        },
+        (error) => console.log(error),
+        () => {
+          this.ingredientService.attachIngredient(this.recipeIngredients, this.recipeDetails.id)
+            .subscribe(
+              (response: Response) => console.log(response['message'])
+            )
         }
       );
     this.editing = false;
@@ -86,5 +128,25 @@ export class RecipeDetailComponent implements OnInit {
           this.router.navigate(['/']);
         }
       );
+  }
+
+  onAddExistingIngredient() {
+    this.addExistingIngredient = true;
+    this.ingredientService.getIngredients()
+      .subscribe(
+        (response: Response) => this.ingredients = response['Ingredients']
+      )
+  }
+
+  onAddIngredient(ingredient: Ingredient, index: number) {
+    this.recipeIngredients.push(ingredient);
+    this.editRecipeIngredients.push(ingredient);
+    this.ingredients.splice(index, 1);
+    this.sumOfIngredientCalories += ingredient.calories;
+  }
+
+  onDeleteEditIngredient(index: number) {
+    this.sumOfIngredientCalories -= this.recipeIngredients[index].calories;
+    this.recipeIngredients.splice(index, 1);
   }
 }

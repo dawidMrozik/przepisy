@@ -13,12 +13,13 @@ export class RecipeService {
         this.token = this.authService.getToken();
     }
 
-    addRecipe(title: String, img_url: String, description: String, preparation: String, user_id: number) {
+    addRecipe(title: String, img_url: String, description: String, preparation: String, calories: number, user_id: number) {
         const body = JSON.stringify({
             title: title,
             img_url: img_url,
             description: description,
             preparation: preparation,
+            calories: calories,
             user_id: user_id
         });
         const headers = new HttpHeaders({"Content-Type": "application/json"});
@@ -33,12 +34,13 @@ export class RecipeService {
         return this.http.get('http://przepisy.test/api/recipe/' + id);
     }
 
-    updateRecipe(id: number, title: String, img_url: String, description: String, preparation: String, user_id: number) {
+    updateRecipe(id: number, title: String, img_url: String, description: String, preparation: String, calories: number, user_id: number) {
         const body = JSON.stringify({
             title: title,
             img_url: img_url,
             description: description,
             preparation: preparation,
+            calories: calories,
             user_id: user_id
         });
         const headers = new HttpHeaders({"Content-Type": "application/json"});

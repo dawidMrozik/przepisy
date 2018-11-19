@@ -16,7 +16,7 @@ class CreateIngredientsCountTable extends Migration
         Schema::create('Counts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('amount')->nullable($value=false);
-            $table->char('unit', 45)->nullable($value=false);
+            $table->text('unit')->nullable($value=false);
             $table->timestamps();
             $table->integer("ingredient_id");
         });

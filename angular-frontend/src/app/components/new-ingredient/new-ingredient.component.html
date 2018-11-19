@@ -1,0 +1,33 @@
+<div class="row">
+  <form class="col s12" #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="name" name="name" type="text" class="validate" ngModel>
+        <label for="name">Nazwa składnika</label>
+      </div>
+      <div class="input-field col s12">
+        <input id="carb" name="carbs" type="number" class="validate" ngModel>
+        <label for="carbs">Węglowodany</label>
+      </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12">
+          <input id="proteins" name="proteins" type="number" class="validate" ngModel>
+          <label for="proteins">Białka</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12">
+          <input id="fats" name="fats" type="number" class="validate ngModel" ngModel>
+          <label for="fats">Tłuszcze</label>
+        </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="calories" name="calories" type="number" class="validate ngModel" ngModel>
+        <label for="calories">Kalorie</label>
+      </div>
+    </div>
+    <button type="submit" class="waves-effect waves-light btn light-green">Dodaj składniki</button>
+   </form>
+</div>

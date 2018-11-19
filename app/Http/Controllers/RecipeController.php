@@ -16,6 +16,7 @@ class RecipeController extends Controller
         $Recipe->img_url = $request->input('img_url');
         $Recipe->description = $request->input('description');
         $Recipe->preparation = $request->input('preparation');
+        $Recipe->calories = $request->input('calories');
         $Recipe->user_id = $request->input('user_id');
         $Recipe->save();
         return response()->json(['Recipe' => $Recipe], 201);
@@ -50,6 +51,7 @@ class RecipeController extends Controller
         $Recipe->img_url = $request->input('img_url');
         $Recipe->description = $request->input('description');
         $Recipe->preparation = $request->input('preparation');
+        $Recipe->calories = $request->input('calories');
         $Recipe->user_id = $request->input('user_id');
         $Recipe->save();
         return response()->json(['Recipe' => $Recipe], 200);
@@ -58,6 +60,7 @@ class RecipeController extends Controller
     public function deleteRecipe($id)
     {
         $Recipe = Recipe::find($id);
+        $Recipe->ingredients()->detach();
         $Recipe->delete();
         return response()->json(['message' => 'Przepis pomyślnie usunięty'], 200);
     }
@@ -82,10 +85,36 @@ class RecipeController extends Controller
 
     public function getRecipeIngredients($id)
     {
-        $ingredients = Recipe::find($id)->ingredients;
+        $ingredients = Recipe::find($id)->ingredients()->get();
         $response = [
           'RecipeIngredients' => $ingredients
         ];
         return response()->json($response, 200);
+    }
+
+    public function attachIngredientToRecipe(Request $request, $id)
+    {
+        $ingredients = $request->input('ingredients');
+        $recipe_id = $request->input('recipe_id');
+        $recipe = Recipe::find($id);
+
+        foreach($ingredients as $ingredient)
+        {
+            $recipe->ingredients()->attach($ingredient);
+        }
+
+        $response = [
+            'message' => 'Składniki dodane'
+        ];
+
+        return response()->json($response, 200);
+    }
+
+    public function detachIngredientFromRecipe($recipe_id, $ingredient_id)
+    {
+        $recipe = Recipe::find($recipe_id);
+        $recipe->ingredients()->detach($ingredient_id);
+
+        return response()->json([ 'message' => 'Składnik odłączony' ], 200);
     }
 }

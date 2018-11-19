@@ -19,6 +19,7 @@ class CreateRecepieTable extends Migration
             $table->text('img_url')->nullable($value=true);
             $table->text('description')->nullable($value=true);
             $table->text('preparation')->nullable($value=false);
+            $table->integer('calories');
             $table->timestamps();
             $table->integer('user_id');
         });
