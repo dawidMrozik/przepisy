@@ -68,6 +68,11 @@ Route::delete('/recipe/{recipe_id}/ingredient/{ingredient_id}/detach', [
     'uses' => 'RecipeController@detachIngredientFromRecipe',
     'middleware' => 'auth.jwt'
 ]);
+
+Route::put('/recipe/{id}/update_calories', [
+    'uses' => 'RecipeController@updateCalories',
+    //'middleware' => 'auth.jwt'
+]);
 // |--------------------------------------------------------------------------
 // | Recipes Routes End
 // |--------------------------------------------------------------------------
@@ -136,10 +141,6 @@ Route::delete('/ingredient/{id}', [
     'uses' => 'IngredientController@deleteIngredient'
 ]);
 
-Route::get('/ingredient/{id}/count', [
-    'uses' => 'IngredientController@getIngredientsCount'
-]);
-
 Route::get('/ingredient/{id}/recipes', [
     'uses' => 'IngredientController@getIngredientRecipes'
 ]);
@@ -186,6 +187,18 @@ Route::get('/counts', [
 
 Route::get('/count/{id}', [
     'uses' => 'CountController@getCount'
+]);
+
+Route::get('/counts/units', [
+    'uses' => 'CountController@getCountsUnits'
+]);
+
+Route::get('/count/find/{unit}/{amount}', [
+    'uses' => 'CountController@findCountId'
+]);
+
+Route::get('/count/unit/{unit}', [
+    'uses' => 'CountController@getCountsWithUnit'
 ]);
 
 Route::post('/count', [

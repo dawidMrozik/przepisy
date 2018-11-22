@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Ingredient } from 'src/app/models/ingredient.interface';
 import { IngredientService } from 'src/app/services/ingredient.service';
+import { CountService } from 'src/app/services/count.service';
 
 @Component({
   selector: 'app-new-recipe',
@@ -18,11 +19,13 @@ export class NewRecipeComponent implements OnInit {
   recipeIngredients: Ingredient[] = [];
   newRecipeId: number;
   sumOfIngredientCalories: number = 0;
+  countsAmounts: number[] = [];
+  countsUnits: string[];
 
   constructor(
     private recipeService: RecipeService,
     private authService: AuthService, 
-    private route: ActivatedRoute,
+    private router: Router,
     private ingredientService: IngredientService
     ) { }
 
@@ -60,10 +63,13 @@ export class NewRecipeComponent implements OnInit {
         () => {
           this.ingredientService.attachIngredient(this.recipeIngredients, this.newRecipeId)
             .subscribe(
-              (response: Response) => console.log(response)
+              (response: Response) => console.log(response),
+              (error) => console.log(error),
+              () => {
+                this.router.navigate(['/przepis/' + this.newRecipeId]);
+              }
             );
         }
       );
-    form.resetForm();
   }
 }

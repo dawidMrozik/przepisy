@@ -59,15 +59,6 @@ class IngredientController extends Controller
         return response()->json(['message' => 'Składnik pomyślnie usunięty'], 200);
     }
 
-    public function getIngredientCount($id)
-    {
-        $count = Ingredient::find($id)->count;
-        $response = [
-          'IngredientCount' => $count
-        ];
-        return response()->json($response, 200);
-    }
-
     public function getIngredientRecipes($id)
     {
         $recipes = Ingredient::find($id)->recipes()->get();

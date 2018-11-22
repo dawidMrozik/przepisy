@@ -21,7 +21,8 @@ class CreateRecepieTable extends Migration
             $table->text('preparation')->nullable($value=false);
             $table->integer('calories');
             $table->timestamps();
-            $table->integer('user_id');
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

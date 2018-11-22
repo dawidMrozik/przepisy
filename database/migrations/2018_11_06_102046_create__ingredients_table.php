@@ -21,7 +21,8 @@ class CreateIngredientsTable extends Migration
             $table->integer('fats')->nullable($value=false);
             $table->integer('calories')->nullable($value=false);
             $table->timestamps();
-            $table->integer('count_id');
+            $table->unsignedInteger('count_id');
+            $table->foreign('count_id')->references('id')->on('counts');
         });
     }
 

@@ -40,8 +40,10 @@ export class AuthService {
     getUser() {
         const token = this.getToken();
         const decoded = this.decodeToken(token);
-        if(token) {
-            return this.http.get('http://przepisy.test/api/user/' + decoded.sub);
-        }
+        return this.http.get('http://przepisy.test/api/user/' + decoded.sub);
+    }
+
+    getUserById(id: number) {
+        return this.http.get('http://przepisy.test/api/user/' + id);
     }
 }

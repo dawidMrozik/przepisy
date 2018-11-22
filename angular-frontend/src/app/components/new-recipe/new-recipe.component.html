@@ -35,10 +35,10 @@
         </ul>
       </form>
       
-      <ul class="right">
+      <ul>
         Dodane składniki
         <li *ngFor="let recipeIngredient of recipeIngredients">
-          {{ recipeIngredient.name }}
+              {{ recipeIngredient.name }}
         </li>
         Kalorie: {{ sumOfIngredientCalories }}
       </ul>

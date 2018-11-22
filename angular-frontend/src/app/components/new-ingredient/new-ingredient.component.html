@@ -18,15 +18,29 @@
     </div>
     <div class="row">
         <div class="input-field col s12">
-          <input id="fats" name="fats" type="number" class="validate ngModel" ngModel>
+          <input id="fats" name="fats" type="number" class="validate" ngModel>
           <label for="fats">Tłuszcze</label>
         </div>
     </div>
     <div class="row">
       <div class="input-field col s12">
-        <input id="calories" name="calories" type="number" class="validate ngModel" ngModel>
+        <input id="calories" name="calories" type="number" class="validate" ngModel>
         <label for="calories">Kalorie</label>
       </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s6">
+          <select class="browser-default" name="unit" (change)="onUnitChange($event.target.value)" ngModel>
+              <option value="" disabled selected>Wybierz jednostkę</option>
+              <option *ngFor="let countsUnit of countsUnits" [value]="countsUnit">{{countsUnit}}</option>
+          </select>
+        </div>
+        <div class="input-field col s6">
+          <select class="browser-default" name="amount" ngModel>
+              <option value="" disabled selected>Wybierz wartość</option>
+              <option *ngFor="let countsAmount of countsAmounts" [value]="countsAmount">{{countsAmount}}</option>
+          </select>
+        </div>
     </div>
     <button type="submit" class="waves-effect waves-light btn light-green">Dodaj składniki</button>
    </form>

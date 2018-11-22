@@ -1,10 +1,12 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, AfterViewInit, AfterContentInit } from '@angular/core';
 import { Recipe } from '../../models/recipe.interface';
 import { RecipeService } from '../../services/recipe.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { IngredientService } from 'src/app/services/ingredient.service';
 import { Ingredient } from 'src/app/models/ingredient.interface';
+import { __core_private_testing_placeholder__ } from '@angular/core/testing';
+import { IngredientsComponent } from '../ingredients/ingredients.component';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -30,6 +32,7 @@ export class RecipeDetailComponent implements OnInit {
   editRecipeIngredients: Ingredient[] = [];
   addExistingIngredient: boolean = false;
   sumOfIngredientCalories: number = 0;
+  @ViewChild(IngredientsComponent) ingredientsChild: IngredientsComponent;
 
   constructor(
     private recipeService: RecipeService,
@@ -72,7 +75,9 @@ export class RecipeDetailComponent implements OnInit {
     this.descriptionEditValue = this.recipeDetails.description;
     this.preparationEditValue = this.recipeDetails.preparation;
     this.imgEditValue = this.recipeDetails.img_url;
-    this.caloriesEditValue = this.recipeDetails.calories;
+    this.caloriesEditValue = this.ingredientsChild.recipeCalories;
+    this.recipeService.updateRecipe(this.recipeDetails.id, this.titleEditValue, this.imgEditValue, this.descriptionEditValue, this.preparationEditValue, this.ingredientsChild.recipeCalories, this.userId)
+    .subscribe()
   }
 
   onEditIngredients() {
@@ -92,12 +97,16 @@ export class RecipeDetailComponent implements OnInit {
   onDeleteIngredient(ingredient_id: number) {
     this.ingredientService.deleteIngredient(this.recipeDetails.id, ingredient_id)
       .subscribe(
-        (response: Response) => console.log(response['message'])
+        (response: Response) => console.log(response['message']),
+        (error) => console.log(error),
+        () => {
+
+        }
       )
   }
 
   onUpdate() {
-    this.recipeService.updateRecipe(this.recipeDetails.id, this.titleEditValue, this.imgEditValue, this.descriptionEditValue, this.preparationEditValue, this.caloriesEditValue, this.userId)
+    this.recipeService.updateRecipe(this.recipeDetails.id, this.titleEditValue, this.imgEditValue, this.descriptionEditValue, this.preparationEditValue, this.ingredientsChild.recipeCalories, this.userId)
       .subscribe(
         (Recipe: Recipe) => {
           this.recipeDetails = Recipe.Recipe;
@@ -132,6 +141,7 @@ export class RecipeDetailComponent implements OnInit {
 
   onAddExistingIngredient() {
     this.addExistingIngredient = true;
+    this.sumOfIngredientCalories = this.recipeDetails.calories;
     this.ingredientService.getIngredients()
       .subscribe(
         (response: Response) => this.ingredients = response['Ingredients']
@@ -142,11 +152,9 @@ export class RecipeDetailComponent implements OnInit {
     this.recipeIngredients.push(ingredient);
     this.editRecipeIngredients.push(ingredient);
     this.ingredients.splice(index, 1);
-    this.sumOfIngredientCalories += ingredient.calories;
   }
 
   onDeleteEditIngredient(index: number) {
-    this.sumOfIngredientCalories -= this.recipeIngredients[index].calories;
     this.recipeIngredients.splice(index, 1);
   }
-}
+} 

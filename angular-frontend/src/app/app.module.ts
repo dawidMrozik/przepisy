@@ -23,6 +23,7 @@ import { IngredientComponent } from './components/ingredient/ingredient.componen
 import { IngredientService } from './services/ingredient.service';
 import { NewIngredientsComponent } from './components/new-ingredients/new-ingredients.component';
 import { NewIngredientComponent } from './components/new-ingredient/new-ingredient.component';
+import { CountService } from './services/count.service';
 
 @NgModule({
   declarations: [
@@ -46,9 +47,9 @@ import { NewIngredientComponent } from './components/new-ingredient/new-ingredie
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    routing
+    routing,
   ],
-  providers: [RecipeService, AuthService, CommentService, IngredientService],
+  providers: [RecipeService, AuthService, CommentService, IngredientService, CountService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -4,9 +4,6 @@
     <h2>
       {{ recipeDetails.title }}
     </h2>
-    <h3>
-      Kalorie przepisu: {{ recipeDetails.calories }}
-    </h3>
     <p>
       {{ recipeDetails.description }}
     </p>
@@ -19,8 +16,7 @@
     <p>
       {{ recipeDetails.updated_at }}
     </p>
-    <h4>Składniki:</h4>
-    <app-ingredients [recipeId]="recipeDetails.id" [userId]="userId" *ngIf="loadIngredients"></app-ingredients>
+    <app-ingredients [recipe]="recipeDetails" [userId]="userId" *ngIf="loadIngredients" [isOwner]="isOwner"></app-ingredients>
   </div>
   <div *ngIf="isOwner">
       <div *ngIf="editing">
@@ -28,10 +24,11 @@
         <textarea [(ngModel)]="imgEditValue" class="materialize-textarea"></textarea>
         <textarea [(ngModel)]="descriptionEditValue" class="materialize-textarea" data-length="2000" rows="7"></textarea>
         <textarea [(ngModel)]="preparationEditValue" class="materialize-textarea" data-length="2000" rows="7"></textarea>
+
           <input type="button" value="Edytuj składniki" (click)="onEditIngredients()" class="waves-effect waves-light btn-small">
             <div *ngIf="editingIngredients">
                 Składniki należące do przepisu:
-                <app-ingredients [recipeId]="recipeDetails.id" [userId]="userId" *ngIf="loadIngredients"></app-ingredients>
+                <app-ingredients [recipe]="recipeDetails" [userId]="userId" [editingIngredients]="editingIngredients" *ngIf="loadIngredients" [isOwner]="isOwner"></app-ingredients>
               <a [routerLink]="[ '/składnik/nowy', recipeDetails.id ]" class="waves-effect waves-light btn-small">Dodaj nowy składnik do bazy</a>
               <input type="button" value="Dodaj istniejący składnik" (click)="onAddExistingIngredient()" class="waves-effect waves-light btn-small">
               <form (ngSubmit)="onSubmitIngredients(g)" #g="ngForm" *ngIf="addExistingIngredient">
@@ -47,7 +44,7 @@
                   Dodane składniki
                   <li *ngFor="let recipeIngredient of recipeIngredients, let i = index">
                     {{ recipeIngredient.name }}
-                    <input type="button" value="+" (click)="onDeleteEditIngredient(i)"/>
+                    <input type="button" value="X" (click)="onDeleteEditIngredient(i)"/>
                   </li>
                   Kalorie: {{ sumOfIngredientCalories }}
                 </ul>
@@ -58,7 +55,7 @@
       <div *ngIf="!editing">
         <a (click)="onEdit()" class="waves-effect waves-light btn-small">Edytuj</a>
         <a (click)="onDelete()" class="waves-effect waves-light btn-small">Usuń</a>
-        <app-comments *ngIf="loadComments" [recipeId]="recipeDetails.id" [userId]="userId"></app-comments>
       </div>
   </div>
+  <app-comments *ngIf="loadComments" [recipeId]="recipeDetails.id" [userId]="userId"></app-comments>
 </div>

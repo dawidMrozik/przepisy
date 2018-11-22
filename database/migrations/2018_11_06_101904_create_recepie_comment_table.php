@@ -17,8 +17,10 @@ class CreateRecepieCommentTable extends Migration
             $table->increments('id');
             $table->text('content')->nullable($value=false);
             $table->timestamps();
-            $table->integer('user_id');
-            $table->integer('recipe_id');
+            $table->unsignedInteger('recipe_id');
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('recipe_id')->references('id')->on('recipes')->onDelete('cascade');
         });
     }
 

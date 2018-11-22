@@ -13,12 +13,13 @@ class CreateIngredientsCountTable extends Migration
      */
     public function up()
     {
+        Schema::enableForeignKeyConstraints();
+
         Schema::create('Counts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('amount')->nullable($value=false);
             $table->text('unit')->nullable($value=false);
             $table->timestamps();
-            $table->integer("ingredient_id");
         });
     }
 

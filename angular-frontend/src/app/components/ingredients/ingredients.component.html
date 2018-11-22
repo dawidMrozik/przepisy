@@ -1,1 +1,10 @@
-<app-ingredient *ngFor="let ingredient of ingredients" [ingredient]="ingredient" [recipeId]="recipeId"></app-ingredient>
+<h2>Kalorie przepisu: {{recipeCalories}}</h2>
+<h1>Składniki:</h1>
+<app-ingredient 
+    *ngFor="let ingredient of ingredients"
+    [ingredient]="ingredient"
+    [recipe]="recipe"
+    [editingIngredients]="editingIngredients"
+    [recipeCalories]="recipeCalories"
+    [isOwner]="isOwner">
+</app-ingredient>

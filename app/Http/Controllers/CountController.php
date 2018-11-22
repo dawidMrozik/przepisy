@@ -24,6 +24,33 @@ class CountController extends Controller
         return response()->json($response, 200);
     }
 
+    public function getCountsUnits()
+    {
+        $Counts = Count::distinct('unit')->pluck('unit');
+
+        $response = [
+          'CountsUnits' => $Counts
+        ];
+        return response()->json($response, 200);
+    }
+
+    public function getCountsWithUnit($unit)
+    {
+        $Counts = Count::where('unit', $unit)->get();
+
+        if(!$Counts) {
+            return response()->json([
+                'message' => 'Jednostka nie znaleziona'
+            ], 200);
+        }
+
+        $response = [
+            'Counts' => $Counts
+        ];
+
+        return response()->json($response, 200);
+    }
+
     public function getCount($id)
     {
         $Count = Count::find($id);
@@ -51,5 +78,16 @@ class CountController extends Controller
         $Count = Count::find($id);
         $Count->delete();
         return response()->json(['message' => 'Miara pomyślnie usunięta'], 200);
+    }
+
+    public function findCountId($unit, $amount)
+    {
+        $Count = Count::where('unit', $unit)->where('amount', $amount)->get();
+
+        if (!$Count) {
+            return response()->json(['message' => 'Miara nie znaleziona'], 404);
+        }
+
+        return response()->json(['Count' => $Count], 200);
     }
 }

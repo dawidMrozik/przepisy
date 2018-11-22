@@ -27,7 +27,7 @@ export class IngredientService {
       ingredients: ingredients.map(ing => ing.id),
       recipe_id: recipe_id
     }
-    console.log(body)
+    
     return this.http.post('http://przepisy.test/api/recipe/' + recipe_id + '/ingredients/attach?token=' + this.token, body, {headers: headers});
   }
 

@@ -13,6 +13,8 @@ class CreateUsersDetailsTable extends Migration
      */
     public function up()
     {
+        Schema::enableForeignKeyConstraints();
+        
         Schema::create('Details', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('calories')->nullable($value = true);
@@ -24,7 +26,6 @@ class CreateUsersDetailsTable extends Migration
             $table->integer('fat')->nullable($value = true);
             $table->date('date')->nullable($value = false);
             $table->timestamps();
-            $table->integer("user_id");
         });
     }
 
