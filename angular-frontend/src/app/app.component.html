@@ -1,15 +1,4 @@
+<app-navbar [isLogged]="isLogged" [userDetailsId]="userDetailsId" [userDetails]="userDetails"></app-navbar>
 <div class="container">
-    <div class="row">
-            <a href="#" [routerLink]="['/']" class="waves-effect waves-light btn-large">Przepisy</a> |
-        <div *ngIf="!isLogged">
-            <a href="#" [routerLink]="['/rejestracja']" class="waves-effect waves-light btn-large">Zarejestruj się</a> |
-            <a href="#" [routerLink]="['/logowanie']" class="waves-effect waves-light btn-large">Zaloguj się</a>
-        </div>
-        <div *ngIf="isLogged">
-            <a href="#" [routerLink]="['/przepis/nowy']" class="waves-effect waves-light btn-large">Dodaj przepis</a> |
-            <a href="#" (click)="onLogout()" class="waves-effect waves-light btn-large">Wyloguj się</a>
-            <p class="right">{{ userEmail }}</p>
-        </div>
-    </div>
     <router-outlet></router-outlet>
 </div>

@@ -220,23 +220,27 @@ Route::delete('/count/{id}', [
 // | Detail Routes
 // |--------------------------------------------------------------------------
 Route::get('/details', [
-    'uses' => 'detailController@getdetails'
+    'uses' => 'detailController@getDetails'
 ]);
 
 Route::get('/detail/{id}', [
-    'uses' => 'detailController@getdetail'
+    'uses' => 'detailController@getDetail'
 ]);
 
 Route::post('/detail', [
-    'uses' => 'detailController@postdetail'
+    'uses' => 'detailController@postDetail'
 ]);
 
 Route::put('/detail/{id}', [
-    'uses' => 'detailController@putdetail'
+    'uses' => 'detailController@putDetail'
 ]);
 
 Route::delete('/detail/{id}', [
-    'uses' => 'detailController@deletedetail'
+    'uses' => 'detailController@deleteDetail'
+]);
+
+Route::get('/detail/user/{id}', [
+    'uses' => 'detailController@getUserDetails'
 ]);
 // |--------------------------------------------------------------------------
 // | Detail Routes End

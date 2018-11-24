@@ -1,0 +1,127 @@
+<nav class="amber darken-3">
+  <div class="nav-wrapper">
+    <div class="logo-wrappper">
+        <a href="#!" [routerLink]="['/']" class="brand-logo"><i class="material-icons">fastfood</i>Przepisy</a>
+    </div>
+
+    <div class="search-bar">
+      <form>
+        <div class="input-field">
+          <input id="search" type="search" required>
+          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+          <i class="material-icons">close</i>
+        </div>
+      </form>
+    </div>
+
+    <div class="menu-wrappper">
+      <ul>
+          <li><a href="#" [routerLink]="['/']"><i class="material-icons">list_alt</i></a></li>
+          <div *ngIf="!isLogged">
+              <li><a href="#" [routerLink]="['/rejestracja']">
+                <i class="material-icons">person_add</i>
+              </a></li>
+              <li><a href="#" [routerLink]="['/logowanie']"><i class="material-icons">person</i></a></li>
+          </div>
+          <div *ngIf="isLogged">
+              <li><a href="#" [routerLink]="['/przepis/nowy']"><i class="material-icons">playlist_add</i></a></li>
+              <li><a href="#" (click)="onLogout()"><i class="material-icons">exit_to_app</i></a></li>
+              
+              <p class="right">{{ userEmail }}</p>
+          </div>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<a *ngIf="isLogged" href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+<ul id="slide-out" class="sidenav">
+  <li><div class="user-view">
+    <div class="background">
+      <img class="responsive-img" src="assets/images/default-bg.jpg">
+    </div>
+    <img class="circle" src="assets/images/default-img.jpg">
+    <span class="white-text name">Jan</span>
+    <span class="white-text email">jdandturk@gmail.com</span>
+  </div></li>
+  <!-- <li><div class="divider"></div></li> -->
+  <li><a class="subheader">Twoje zapotrzebowanie</a></li>
+  <div *ngIf="!editingUserDetails">
+    <li class="align-center"><a>Kalorie: {{userDetails.calories}}</a></li>
+    <li class="align-center"><a>Białka: {{userDetails.protein}}</a></li>
+    <li class="align-center"><a>Węglowodany: {{userDetails.carbs}}</a></li>
+    <li class="align-center"><a>Tłuszcze: {{userDetails.fat}}</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader">Informacje o Tobie</a></li>
+    <li class="align-center"><a>Wiek: {{userDetails.age}}</a></li>
+    <li class="align-center"><a>Wzrost: {{userDetails.height}}</a></li>
+    <li class="align-center"><a>Waga: {{userDetails.weight}}kg</a></li>
+  </div>
+  <div *ngIf="editingUserDetails">
+      <li class="align-center">
+        <a>
+          <div class="input-field">
+            <input type="text" name="editCaloriesValue" id="editCaloriesValue" [(ngModel)]="editCaloriesValue">
+            <label class="active" for="editCaloriesValue">Kalorie</label>
+          </div>
+        </a>
+      </li>
+      <li class="align-center">
+        <a>
+          <div class="input-field">
+            <input type="text" name="editProteinValue" id="editProteinValue" [(ngModel)]="editProteinValue">
+            <label class="active" for="editProteinValue">Białka</label>
+          </div>
+        </a>
+      </li>
+      <li class="align-center">
+        <a>
+          <div class="input-field">
+            <input type="text" name="editCarbsValue" id="editCarbsValue" [(ngModel)]="editCarbsValue">
+            <label class="active" for="editCarbsValue">Węglowodany</label>
+          </div>
+        </a>
+      </li>
+      <li class="align-center">
+        <a>
+          <div class="input-field">
+            <input type="text" name="editFatsValue" id="editFatValue" [(ngModel)]="editFatValue">
+            <label class="active" for="editFatsValue">Tłuszcze</label>
+          </div>
+        </a>
+      </li>
+      <li><div class="divider"></div></li>
+      <li><a class="subheader">Informacje o Tobie</a></li>
+      <li class="align-center">
+        <a>
+          <div class="input-field active">
+            <input type="number" name="editAgeValue" id="editAgeValue" [(ngModel)]="editAgeValue">
+            <label class="active" for="editAgeValue">Wiek</label>
+          </div>
+        </a>
+      </li>
+      <li class="align-center">
+          <a>
+            <div class="input-field active">
+              <input type="number" name="editHeightValue" id="editHeightValue" [(ngModel)]="editHeightValue">
+              <label class="active" for="editHeightValue">Wzrost</label>
+            </div>
+          </a>
+        </li>
+        <li class="align-center">
+            <a>
+              <div class="input-field active">
+                <input type="number" name="editWeightValue" id="editWeightValue" [(ngModel)]="editWeightValue">
+                <label class="active" for="editWeightValue">Waga</label>
+              </div>
+            </a>
+          </li>
+    </div>
+  <li><div class="divider"></div></li>
+  <li><a class="subheader">Zarządzaj</a></li>
+  <li *ngIf="!editingUserDetails" class="yellow darken-3"><a class="white-text" href="#!" (click)="onEdit()">Edytuj<i class="material-icons">edit</i></a></li>
+  <div *ngIf="editingUserDetails">
+      <li class="text-white light-green darken-1"><a class="white-text" href="#!" (click)="onSave()">Zapisz<i class="material-icons">save</i></a></li>
+      <li class="text-white orange darken-4"><a class="white-text" href="#!" (click)="onCancel()">Anuluj<i class="material-icons">cancel</i></a></li>
+  </div>
+</ul>

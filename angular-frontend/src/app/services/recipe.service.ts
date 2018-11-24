@@ -9,7 +9,6 @@ import { AuthService } from "./auth.service";
 @Injectable()
 export class RecipeService {
     token: String;
-    recipeCalories: number = 0;
 
     constructor(private http: HttpClient, private authService: AuthService) {
         this.token = this.authService.getToken();

@@ -45,15 +45,14 @@ class DetailController extends Controller
         if (!$Detail) {
             return response()->json(['message' => 'Szczegóły użytkonwika nie znalezione'], 404);
         }
-        $Detail->calories = $request->input('amount');
-        $Detail->height = $request->input('unit');
-        $Detail->weight = $request->input('ingredient_id');
+        $Detail->calories = $request->input('calories');
+        $Detail->height = $request->input('height');
+        $Detail->weight = $request->input('weight');
         $Detail->age = $request->input('age');
         $Detail->carbs = $request->input('carbs');
         $Detail->protein = $request->input('protein');
         $Detail->fat = $request->input('fat');
-        $Detail->date = $request->input('date');
-        $Detail->user_id = $request->input('user_id');
+        $Detail->date = date("Y-m-d H:i:s");
         $Detail->save();
         return response()->json(['Detail' => $Detail], 200);
     }
@@ -63,5 +62,20 @@ class DetailController extends Controller
         $Detail = Detail::find($id);
         $Detail->delete();
         return response()->json(['message' => 'Szczegóły użytkonwika pomyślnie usunięta'], 200);
+    }
+
+    public function getUserDetails($id)
+    {
+        $Detail = Detail::find($id)->user;
+
+        if (!$Detail) {
+            return response()->json(['message' => 'Szczegóły użytkonwika nie znalezione'], 404);
+        }
+
+        $response = [
+            'UserDetails' => $Detail
+        ];
+        
+        return response()->json($response, 200);
     }
 }

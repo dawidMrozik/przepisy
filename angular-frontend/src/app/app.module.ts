@@ -24,6 +24,8 @@ import { IngredientService } from './services/ingredient.service';
 import { NewIngredientsComponent } from './components/new-ingredients/new-ingredients.component';
 import { NewIngredientComponent } from './components/new-ingredient/new-ingredient.component';
 import { CountService } from './services/count.service';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { UserDetailsService } from './services/user-details.service';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,8 @@ import { CountService } from './services/count.service';
     IngredientsComponent,
     IngredientComponent,
     NewIngredientsComponent,
-    NewIngredientComponent
+    NewIngredientComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,7 @@ import { CountService } from './services/count.service';
     FormsModule,
     routing,
   ],
-  providers: [RecipeService, AuthService, CommentService, IngredientService, CountService],
+  providers: [RecipeService, AuthService, CommentService, IngredientService, CountService, UserDetailsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

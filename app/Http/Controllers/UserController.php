@@ -97,7 +97,7 @@ class UserController extends Controller
     {
         $User = User::find($id)->detail;
         $res = [
-          'User' => $User
+          'UserDetails' => $User
         ];
         return response()->json($res, 200);
     }

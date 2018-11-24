@@ -1,0 +1,51 @@
+.nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.search-bar {
+    width: 64vw;
+}
+
+.logo-wrappper {
+    width: 15vw;
+}
+
+.menu-wrappper {
+    width: 20vw;
+}
+
+.brand-logo {
+    margin-left: 1vw;
+}
+
+.sidenav-trigger {
+    position: fixed;
+    top: 10vh;
+    left: 2vw;
+    text-decoration: none;
+    color: #1c1c1c;
+}
+
+  /* label color */
+  .input-field label {
+    color: #000;
+  }
+  /* label focus color */
+  .input-field input[type=text]:focus + label {
+    color: #0075B2;
+  }
+
+  .input-field input[type=number]:focus + label {
+    color: #0075B2;
+  }
+  /* label underline focus color */
+  .input-field input[type=text]:focus {
+    border-bottom: 1px solid #0075B2;
+    box-shadow: 0 1px 0 0 #000;
+  }
+
+  .input-field input[type=number]:focus {
+    border-bottom: 1px solid #0075B2;
+    box-shadow: 0 1px 0 0 #000;
+  }

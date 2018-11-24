@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
+import * as M from 'materialize-css';
+import { Router } from '@angular/router';
+import { UserDetails } from './models/user-details.interface';
+import { UserDetailsService } from './services/user-details.service';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +13,16 @@ import { AuthService } from './services/auth.service';
 export class AppComponent {
   isLogged: Boolean;
   userEmail: String;
-  constructor(private authService: AuthService) {}
+  userDetailsId: number;
+  loadNav: boolean = false;
+  userDetails: UserDetails;
+
+  constructor(private authService: AuthService, private router: Router, private userDetailsService: UserDetailsService) {}
 
   ngOnInit() {
+    M.AutoInit();
     this.getUserData();
+    this.loadNav = true;
   }
 
   ngAfterContentChecked() {
@@ -32,11 +42,21 @@ export class AppComponent {
      .subscribe(
        (response: Response) => {
          this.userEmail = response['User'].email;
+         this.userDetailsId = response['User'].detail_id;
+       },
+       (error) => console.log(error),
+       () => {
+        this.userDetailsService.getUserDetails(this.userDetailsId)
+        .subscribe(
+          (response: Response) => {
+            this.userDetails = response['Detail']
+          }
+        ),
+        (error) => console.log(error),
+        () => {
+          
+        }
        }
      )
-  }
-
-  onLogout() {
-    localStorage.removeItem('token');
   }
 }

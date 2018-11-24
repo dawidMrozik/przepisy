@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-signin',
@@ -19,7 +20,11 @@ export class SigninComponent implements OnInit {
       .subscribe(
         decodedData => console.log(decodedData),
         error => console.log(error),
-        () => this.router.navigate(['/'])
+        () => {
+          form.resetForm();
+          location.reload();
+          this.router.navigate(["/"]);
+        }
       );
   }
 

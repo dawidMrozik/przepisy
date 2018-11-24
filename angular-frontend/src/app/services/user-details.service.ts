@@ -1,0 +1,30 @@
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { AuthService } from "./auth.service";
+
+@Injectable()
+export class UserDetailsService {
+    token: String;
+
+    constructor(private http: HttpClient, private authService: AuthService) {
+        this.token = this.authService.getToken();
+    }
+
+    getUserDetails(detail_id: number) {
+        return this.http.get('http://przepisy.test/api/detail/' + detail_id);
+    }
+
+    updateDetails(detail_id: number, calories: number, weight: number, height: number, age: number, carbs: number, protein: number, fat: number) {
+        const body = JSON.stringify({
+            calories: calories,
+            weight: weight,
+            height: height,
+            age: age,
+            carbs: carbs,
+            protein: protein,
+            fat: fat
+        });
+        const headers = new HttpHeaders({"Content-Type": "application/json"});
+        return this.http.put('http://przepisy.test/api/detail/' + detail_id + '?token=' + this.token, body, { headers: headers });
+    }
+}
