@@ -2,10 +2,10 @@
       <a [routerLink]="[ '/przepis', recipe.id ]">
         <div class="card-panel grey lighten-5 z-depth-1">
             <div class="row valign-wrapper">
-                <div class="col s2">
+                <div class="col s4">
                 <img src="{{ recipe?.img_url }}" alt="" class="responsive-img">
                 </div>
-                <div class="col s10">
+                <div class="col s8">
                 <span class="black-text">
                     <div class="left">
                         <h6>{{recipe.title}}</h6>
@@ -13,10 +13,13 @@
                         <p>{{recipe.updated_at}}</p>
                         <p>{{userName}}</p>
                     </div>
-                    <h4 class="right">{{recipe.calories}}</h4>
+                    <div class="right">
+                        <span>{{recipe.calories}}</span>
+                    </div>
                 </span>
                 </div>
             </div>
         </div>
       </a>
+      <a class="btn-floating btn-large waves-effect waves-light red" (click)="eatRecipe(recipe.calories)"><i class="material-icons">restaurant</i></a>
 </li>

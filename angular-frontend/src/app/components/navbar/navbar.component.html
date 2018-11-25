@@ -115,7 +115,15 @@
                 <label class="active" for="editWeightValue">Waga</label>
               </div>
             </a>
-          </li>
+        </li>
+        <li class="align-center">
+            <a>
+              <div class="input-field active">
+                <input type="number" name="editCaloriesEatenValue" id="editCaloriesEatenValue" [(ngModel)]="editCaloriesEatenValue">
+                <label class="active" for="editCaloriesEatenValue">Zjedzone kalorie</label>
+              </div>
+            </a>
+        </li>
     </div>
   <li><div class="divider"></div></li>
   <li><a class="subheader">Zarządzaj</a></li>
@@ -124,4 +132,13 @@
       <li class="text-white light-green darken-1"><a class="white-text" href="#!" (click)="onSave()">Zapisz<i class="material-icons">save</i></a></li>
       <li class="text-white orange darken-4"><a class="white-text" href="#!" (click)="onCancel()">Anuluj<i class="material-icons">cancel</i></a></li>
   </div>
+  <li class="align-center"><a>Zjedzone: {{userDetails.caloriesEaten}}/{{ userDetails.calories }}kcal</a></li>
+  <li class="prog">
+      <circle-progress
+      [percent]="percentsInt"
+      [radius]="30"
+      [animation]="true"
+      [animationDuration]="300"
+    ></circle-progress>
+  </li>
 </ul>

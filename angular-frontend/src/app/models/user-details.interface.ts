@@ -1,6 +1,7 @@
 export interface UserDetails {
     id: number;
     calories: number;
+    caloriesEaten: number;
     weight: number;
     height: number;
     age: number;

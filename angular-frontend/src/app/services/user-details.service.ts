@@ -14,9 +14,10 @@ export class UserDetailsService {
         return this.http.get('http://przepisy.test/api/detail/' + detail_id);
     }
 
-    updateDetails(detail_id: number, calories: number, weight: number, height: number, age: number, carbs: number, protein: number, fat: number) {
+    updateDetails(detail_id: number, calories: number, caloriesEaten: number, weight: number, height: number, age: number, carbs: number, protein: number, fat: number) {
         const body = JSON.stringify({
             calories: calories,
+            caloriesEaten: caloriesEaten,
             weight: weight,
             height: height,
             age: age,

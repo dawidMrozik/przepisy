@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import * as M from 'materialize-css';
 import { UserDetailsService } from 'src/app/services/user-details.service';
 import { UserDetails } from 'src/app/models/user-details.interface';
@@ -9,7 +9,7 @@ import { getLocaleDateTimeFormat, getLocaleDateFormat, FormatWidth } from '@angu
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnChanges {
   @Input() isLogged;
   @Input() userDetailsId;
   @Input() userDetails: UserDetails;
@@ -22,6 +22,9 @@ export class NavbarComponent implements OnInit {
   editFatValue: number;
   editHeightValue: number;
   editWeightValue: number;
+  editCaloriesEatenValue: number;
+  percents: number;
+  percentsInt: number;
 
   constructor(private userDetailsService: UserDetailsService) {}
 
@@ -30,6 +33,11 @@ export class NavbarComponent implements OnInit {
       var elems = document.querySelectorAll('.sidenav');
       var instances = M.Sidenav.init(elems);
     });
+  }
+
+  ngOnChanges(): void {
+    this.calculateEatenCalories();
+    console.log("Policzone");
   }
 
   onLogout() {
@@ -45,6 +53,7 @@ export class NavbarComponent implements OnInit {
     this.editFatValue = this.userDetails.fat;
     this.editHeightValue = this.userDetails.height;
     this.editWeightValue = this.userDetails.weight;
+    this.editCaloriesEatenValue = this.userDetails.caloriesEaten;
     this.editingUserDetails = true;
     M.updateTextFields();
   }
@@ -54,7 +63,7 @@ export class NavbarComponent implements OnInit {
   }
 
   onSave() {
-    this.userDetailsService.updateDetails(this.userDetails.id, this.editCaloriesValue, this.editWeightValue, this.editHeightValue, this.editAgeValue, this.editCarbsValue, this.editProteinValue, this.editFatValue)
+    this.userDetailsService.updateDetails(this.userDetails.id, this.editCaloriesValue, this.editCaloriesEatenValue, this.editWeightValue, this.editHeightValue, this.editAgeValue, this.editCarbsValue, this.editProteinValue, this.editFatValue)
       .subscribe(
         (response: Response) => {
           this.editedUserDetails = response['Detail'];
@@ -63,8 +72,21 @@ export class NavbarComponent implements OnInit {
         (error) => console.log(error),
         () => {
           this.userDetails = this.editedUserDetails;
+          this.calculateEatenCalories();
           this.editingUserDetails = false;
         }
       )
+  }
+
+  calculateEatenCalories() {
+    if(this.userDetails.caloriesEaten == 0) {
+      this.percents = 0;
+      this.percentsInt = 0;
+    }
+    else {
+      this.percents = Number(((this.userDetails.caloriesEaten / this.userDetails.calories) * 100).toFixed(2));
+      this.percentsInt = Math.floor(this.percents);
+      console.log(this.percentsInt)
+    }
   }
 }

@@ -26,6 +26,7 @@ import { NewIngredientComponent } from './components/new-ingredient/new-ingredie
 import { CountService } from './services/count.service';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { UserDetailsService } from './services/user-details.service';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,21 @@ import { UserDetailsService } from './services/user-details.service';
     HttpClientModule,
     FormsModule,
     routing,
+    NgCircleProgressModule.forRoot({
+      // set defaults here
+      "backgroundColor": "#FDB900",
+      "radius": 60,
+      "maxPercent": 200,
+      "unitsColor": "#483500",
+      "outerStrokeWidth": 5,
+      "outerStrokeColor": "#FFFFFF",
+      "innerStrokeColor": "#FFFFFF",
+      "titleColor": "#483500",
+      "subtitleColor": "#483500",
+      "showSubtitle": false,
+      "showInnerStroke": false,
+      "startFromZero": false
+    })
   ],
   providers: [RecipeService, AuthService, CommentService, IngredientService, CountService, UserDetailsService],
   bootstrap: [AppComponent]
