@@ -27,6 +27,7 @@ import { CountService } from './services/count.service';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { UserDetailsService } from './services/user-details.service';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { RatingComponent } from './components/rating/rating.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
     IngredientComponent,
     NewIngredientsComponent,
     NewIngredientComponent,
-    NavbarComponent
+    NavbarComponent,
+    RatingComponent
   ],
   imports: [
     BrowserModule,

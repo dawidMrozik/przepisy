@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Recipe } from '../../models/recipe.interface';
 import { AuthService } from 'src/app/services/auth.service';
 import { RecipeService } from 'src/app/services/recipe.service';
+import { Rating } from 'src/app/models/rating.interface';
 
 @Component({
   selector: 'app-recipe',
@@ -11,6 +12,8 @@ import { RecipeService } from 'src/app/services/recipe.service';
 export class RecipeComponent {
   @Input() recipe: Recipe;
   userName: string = "";
+  ratings: Rating[];
+  avgRating: number;
 
   constructor(private authService: AuthService, private recipeService: RecipeService) { }
 
@@ -19,12 +22,15 @@ export class RecipeComponent {
       .subscribe(
         (response: Response) => {
           this.userName = response['User']['email']
+        },
+        (error) => console.log(error),
+        () => {
+          this.getRecipeRatings();
         }
       )
   }
 
   eatRecipe(recipeCalories: number) {
-    console.log('wywołane');
     this.recipeService.eatRecipe(recipeCalories)
       .subscribe(
         (response: Response) => console.log(response),
@@ -34,6 +40,25 @@ export class RecipeComponent {
           location.reload();
         }
       )
+  }
+
+  getRecipeRatings() {
+    this.recipeService.getRecipeRatings(this.recipe.id)
+      .subscribe(
+        (response: Response) => {
+          this.ratings = response["RecipeRatings"]
+          // console.log(this.ratings)
+          let sum = 0;
+          this.ratings.forEach((rating) => {
+            sum += rating.rate;
+          })
+          this.avgRating = Number((sum / this.ratings.length).toFixed(1));
+        }
+      ),
+      (error) => console.log(error),
+      () => {
+        
+      }
   }
 
 }

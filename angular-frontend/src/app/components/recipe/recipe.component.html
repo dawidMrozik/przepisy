@@ -14,7 +14,8 @@
                         <p>{{userName}}</p>
                     </div>
                     <div class="right">
-                        <span>{{recipe.calories}}</span>
+                        <p>{{recipe.calories}}</p>
+                        <p *ngIf="avgRating">Średnia ocena: {{avgRating}}</p>
                     </div>
                 </span>
                 </div>

@@ -2,7 +2,6 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import * as M from 'materialize-css';
 import { UserDetailsService } from 'src/app/services/user-details.service';
 import { UserDetails } from 'src/app/models/user-details.interface';
-import { getLocaleDateTimeFormat, getLocaleDateFormat, FormatWidth } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
@@ -37,7 +36,6 @@ export class NavbarComponent implements OnInit, OnChanges {
 
   ngOnChanges(): void {
     this.calculateEatenCalories();
-    console.log("Policzone");
   }
 
   onLogout() {
@@ -86,7 +84,6 @@ export class NavbarComponent implements OnInit, OnChanges {
     else {
       this.percents = Number(((this.userDetails.caloriesEaten / this.userDetails.calories) * 100).toFixed(2));
       this.percentsInt = Math.floor(this.percents);
-      console.log(this.percentsInt)
     }
   }
 }

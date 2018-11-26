@@ -242,6 +242,10 @@ Route::delete('/detail/{id}', [
 Route::get('/detail/user/{id}', [
     'uses' => 'detailController@getUserDetails'
 ]);
+
+Route::put('/detail/{id}/eat', [
+    'uses' => 'detailController@eatRecipe'
+]);
 // |--------------------------------------------------------------------------
 // | Detail Routes End
 // |--------------------------------------------------------------------------
@@ -251,23 +255,23 @@ Route::get('/detail/user/{id}', [
 // | Rating Routes
 // |--------------------------------------------------------------------------
 Route::get('/ratings', [
-    'uses' => 'ratingController@getratings'
+    'uses' => 'ratingController@getRatings'
 ]);
 
 Route::get('/rating/{id}', [
-    'uses' => 'ratingController@getrating'
+    'uses' => 'ratingController@getRating'
 ]);
 
 Route::post('/rating', [
-    'uses' => 'ratingController@postrating'
+    'uses' => 'ratingController@postRating'
 ]);
 
 Route::put('/rating/{id}', [
-    'uses' => 'ratingController@putrating'
+    'uses' => 'ratingController@putRating'
 ]);
 
 Route::delete('/rating/{id}', [
-    'uses' => 'ratingController@deleterating'
+    'uses' => 'ratingController@deleteRating'
 ]);
 // |--------------------------------------------------------------------------
 // | Rating Routes End

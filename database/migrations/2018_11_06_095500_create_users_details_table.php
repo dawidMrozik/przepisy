@@ -18,6 +18,7 @@ class CreateUsersDetailsTable extends Migration
         Schema::create('Details', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('calories')->nullable($value = true);
+            $table->integer('caloriesEaten')->nullable($value = false)->default(0);
             $table->integer('height')->nullable($value = true);
             $table->integer('weight')->nullable($value = true);
             $table->integer('age')->nullable($value = true);

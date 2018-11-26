@@ -36,7 +36,7 @@ class User extends Authenticatable
     }
 
 
-public function detail()
+    public function detail()
     {
         return $this->hasOne('App\Models\Detail');
         

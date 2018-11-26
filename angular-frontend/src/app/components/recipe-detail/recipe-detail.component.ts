@@ -7,6 +7,7 @@ import { IngredientService } from 'src/app/services/ingredient.service';
 import { Ingredient } from 'src/app/models/ingredient.interface';
 import { __core_private_testing_placeholder__ } from '@angular/core/testing';
 import { IngredientsComponent } from '../ingredients/ingredients.component';
+import { Rating } from 'src/app/models/rating.interface';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -157,4 +158,5 @@ export class RecipeDetailComponent implements OnInit {
   onDeleteEditIngredient(index: number) {
     this.recipeIngredients.splice(index, 1);
   }
+
 } 

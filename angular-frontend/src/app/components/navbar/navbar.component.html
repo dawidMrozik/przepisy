@@ -47,15 +47,15 @@
   <!-- <li><div class="divider"></div></li> -->
   <li><a class="subheader">Twoje zapotrzebowanie</a></li>
   <div *ngIf="!editingUserDetails">
-    <li class="align-center"><a>Kalorie: {{userDetails.calories}}</a></li>
-    <li class="align-center"><a>Białka: {{userDetails.protein}}</a></li>
-    <li class="align-center"><a>Węglowodany: {{userDetails.carbs}}</a></li>
-    <li class="align-center"><a>Tłuszcze: {{userDetails.fat}}</a></li>
+    <li class="align-center"><a>Kalorie: {{userDetails?.calories}}</a></li>
+    <li class="align-center"><a>Białka: {{userDetails?.protein}}</a></li>
+    <li class="align-center"><a>Węglowodany: {{userDetails?.carbs}}</a></li>
+    <li class="align-center"><a>Tłuszcze: {{userDetails?.fat}}</a></li>
     <li><div class="divider"></div></li>
     <li><a class="subheader">Informacje o Tobie</a></li>
-    <li class="align-center"><a>Wiek: {{userDetails.age}}</a></li>
-    <li class="align-center"><a>Wzrost: {{userDetails.height}}</a></li>
-    <li class="align-center"><a>Waga: {{userDetails.weight}}kg</a></li>
+    <li class="align-center"><a>Wiek: {{userDetails?.age}}</a></li>
+    <li class="align-center"><a>Wzrost: {{userDetails?.height}}</a></li>
+    <li class="align-center"><a>Waga: {{userDetails?.weight}}kg</a></li>
   </div>
   <div *ngIf="editingUserDetails">
       <li class="align-center">
@@ -132,7 +132,7 @@
       <li class="text-white light-green darken-1"><a class="white-text" href="#!" (click)="onSave()">Zapisz<i class="material-icons">save</i></a></li>
       <li class="text-white orange darken-4"><a class="white-text" href="#!" (click)="onCancel()">Anuluj<i class="material-icons">cancel</i></a></li>
   </div>
-  <li class="align-center"><a>Zjedzone: {{userDetails.caloriesEaten}}/{{ userDetails.calories }}kcal</a></li>
+  <li class="align-center"><a>Zjedzone: {{userDetails?.caloriesEaten}}/{{ userDetails?.calories }}kcal</a></li>
   <li class="prog">
       <circle-progress
       [percent]="percentsInt"

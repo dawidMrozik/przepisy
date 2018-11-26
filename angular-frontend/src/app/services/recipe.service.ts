@@ -66,4 +66,32 @@ export class RecipeService {
         const headers = new HttpHeaders({"Content-Type": "application/json"});
         return this.http.put('http://przepisy.test/api/detail/' + this.user.detail_id + '/eat?token=' + this.token, body, { headers: headers });
     }
+
+    getRecipeRatings(recipe_id: number) {
+        return this.http.get('http://przepisy.test/api/recipe/' + recipe_id + "/ratings")
+    }
+
+    addRating(recipe_id: number, user_id: number, rate: number) {
+        const body = JSON.stringify({
+            recipe_id: recipe_id,
+            user_id: user_id,
+            isRated: 1,
+            rate: rate
+        });
+
+        const headers = new HttpHeaders({"Content-Type": "application/json"});
+        return this.http.post('http://przepisy.test/api/rating', body, { headers: headers });
+    }
+
+    updateRating(rating_id: number, recipe_id: number, user_id: number, rate: number) {
+        const body = JSON.stringify({
+            recipe_id: recipe_id,
+            user_id: user_id,
+            isRated: 1,
+            rate: rate
+        });
+
+        const headers = new HttpHeaders({"Content-Type": "application/json"});
+        return this.http.put('http://przepisy.test/api/rating/' + rating_id, body, { headers: headers });
+    }
 }

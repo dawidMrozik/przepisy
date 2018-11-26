@@ -46,6 +46,7 @@ class DetailController extends Controller
             return response()->json(['message' => 'Szczegóły użytkonwika nie znalezione'], 404);
         }
         $Detail->calories = $request->input('calories');
+        $Detail->caloriesEaten = $request->input('caloriesEaten');
         $Detail->height = $request->input('height');
         $Detail->weight = $request->input('weight');
         $Detail->age = $request->input('age');
@@ -77,5 +78,19 @@ class DetailController extends Controller
         ];
         
         return response()->json($response, 200);
+    }
+
+    public function eatRecipe(Request $request, $id)
+    {
+        $Detail = Detail::find($id);
+
+        if (!$Detail) {
+            return response()->json(['message' => 'Szczegóły użytkonwika nie znalezione'], 404);
+        }
+
+        $Detail->caloriesEaten += $request->input('caloriesEaten');
+        $Detail->save();
+
+        return response()->json(['Detail' => $Detail], 200);
     }
 }
