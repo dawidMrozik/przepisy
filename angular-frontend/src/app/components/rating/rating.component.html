@@ -1,9 +1,5 @@
-<p *ngIf="avgRating">
-  Średnia ocena: {{ avgRating }}
-</p>
-
 <form (ngSubmit)="onRate(f)" #f="ngForm">
-  <div class="input-field col s1">
+  <div class="input-field rate">
     <select class="browser-default" name="rate" ngModel>
       <option value="" disabled selected *ngIf="avgRating">{{avgRating}}</option>
       <option value="0">0</option>
@@ -21,3 +17,6 @@
     <button type="submit" class="waves-effect waves-light btn light-green">Oceń</button>
   </div>
 </form>
+<p *ngIf="avgRating" class="avg-rate">
+    Średnia ocena: {{ avgRating }}
+</p>

@@ -9,8 +9,8 @@ export class AuthService {
 
     }
 
-    signup(email: String, password: String) {
-        return this.http.post('http://przepisy.test/api/user', {email: email, password: password},
+    signup(name: String, email: String, password: String) {
+        return this.http.post('http://przepisy.test/api/user', {name: name, email: email, password: password},
         {headers: new HttpHeaders({'X-Requested-With': 'XMLHttpRequest'})});
     }
 
@@ -32,9 +32,11 @@ export class AuthService {
     }
 
     private decodeToken(token: String) {
-        const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace('-', '+').replace('_', "/");
-        return JSON.parse(window.atob(base64));
+        if(token){
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace('-', '+').replace('_', "/");
+            return JSON.parse(window.atob(base64));
+        } else return "";
     }
 
     getUser() {

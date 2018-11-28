@@ -1,5 +1,5 @@
-<li class="collection-item">
-      <a [routerLink]="[ '/przepis', recipe.id ]">
+<!-- <li class="collection-item">
+    
         <div class="card-panel grey lighten-5 z-depth-1">
             <div class="row valign-wrapper">
                 <div class="col s4">
@@ -21,6 +21,24 @@
                 </div>
             </div>
         </div>
-      </a>
-      <a class="btn-floating btn-large waves-effect waves-light red" (click)="eatRecipe(recipe.calories)"><i class="material-icons">restaurant</i></a>
-</li>
+    </a>
+    <a class="btn-floating btn-large waves-effect waves-light red" (click)="eatRecipe(recipe.calories)"><i class="material-icons">restaurant</i></a>
+</li> -->
+<a [routerLink]="[ '/przepis', recipe.id ]">
+    <div class="card hoverable">
+        <div class="card-image">
+            <img *ngIf="recipe?.img_url" src="{{ recipe?.img_url }}" height="300px">
+            <img *ngIf="!recipe?.img_url" src="assets/images/no_img.png" height="300px">
+            <a class="btn-floating btn-large halfway-fab waves-effect waves-light blue darken-2 hoverable" (click)="eatRecipe(recipe.calories)">
+                <i class="material-icons">restaurant</i>
+            </a>
+        </div>
+        <div class="card-content">
+            <p class="center-align recipe-title truncate">{{ recipe.title }}</p>
+            <p *ngIf="recipe.calories >= 700" class="center-align deep-orange-text">{{ recipe.calories }}kcal</p>
+            <p *ngIf="recipe.calories < 700 && recipe.calories >= 400" class="center-align">{{ recipe.calories }}kcal</p>
+            <p *ngIf="recipe.calories < 400" class="center-align light-green-text">{{ recipe.calories }}kcal</p>
+            <p class="right-align recipe-author">Autor: {{ userName }}</p>
+        </div>
+    </div>
+</a>

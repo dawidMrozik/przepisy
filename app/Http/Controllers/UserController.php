@@ -16,10 +16,11 @@ class UserController extends Controller
         
         // Role i detale do implementacji
         $user = new User([
+            'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
             'role_id' => 2,
-            'detail_id' => 0
+            'detail_id' => 1
         ]);
 
         $user->save();
@@ -78,6 +79,7 @@ class UserController extends Controller
         if (!$User) {
             return response()->json(['message' => 'Użytkownik nie znaleziony'], 404);
         }
+        $User->name = $request->input('name');
         $User->email = $request->input('email');
         $User->password = $request->input('password');
         $User->detail_id = $request->input('detail_id');

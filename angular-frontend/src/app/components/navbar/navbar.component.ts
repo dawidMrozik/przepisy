@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import * as M from 'materialize-css';
 import { UserDetailsService } from 'src/app/services/user-details.service';
 import { UserDetails } from 'src/app/models/user-details.interface';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -24,14 +25,24 @@ export class NavbarComponent implements OnInit, OnChanges {
   editCaloriesEatenValue: number;
   percents: number;
   percentsInt: number;
+  userName: string;
+  userEmail: string;
 
-  constructor(private userDetailsService: UserDetailsService) {}
+  constructor(private userDetailsService: UserDetailsService, private authService: AuthService) {}
 
   ngOnInit() {
     document.addEventListener('DOMContentLoaded', function() {
       var elems = document.querySelectorAll('.sidenav');
       var instances = M.Sidenav.init(elems);
     });
+
+    this.authService.getUser()
+      .subscribe(
+        (response: Response) => {
+          this.userName = response['User'].name;
+          this.userEmail = response['User'].email
+        }
+      )
   }
 
   ngOnChanges(): void {

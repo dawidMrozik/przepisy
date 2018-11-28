@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Ranga&subset=latin-ext');
+
+/* .card {
+    height: 400px;
+} */
+
+.recipe-title {
+    color: #424242;
+    font-family: 'Ranga', cursive;
+    font-size: 40px;
+    font-weight: 300;
+}
+
+.recipe-author {
+    color: #757575;
+    font-style: italic;
+    font-size: 0.8em;
+}

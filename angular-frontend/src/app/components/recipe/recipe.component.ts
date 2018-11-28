@@ -21,7 +21,7 @@ export class RecipeComponent {
     this.authService.getUserById(this.recipe.user_id)
       .subscribe(
         (response: Response) => {
-          this.userName = response['User']['email']
+          this.userName = response['User']['name']
         },
         (error) => console.log(error),
         () => {
