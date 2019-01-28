@@ -1,7 +1,14 @@
 <div *ngIf="loadIngredients">
-  <div>
-    <div *ngIf="!editingCount">{{ ingredient.name }} {{count.amount}} {{count.unit}} - {{ingredient.calories}} kalorii</div>
-    <div *ngIf="editingCount">
+    <div *ngIf="!editingCount" class="ingredient-panel">
+      <p>
+        <span class="ingredient-name">{{ ingredient.name }} </span>
+        <span class="ingredient-count">({{ count.amount }} {{ count.unit }}) </span>
+        <span class="ingredient-kcal">{{ ingredient.calories }} kcal </span>
+      </p>
+      <input *ngIf="isOwner" type="button" (click)="onDetachIngredient(ingredient)" class="ingredient-delete" value="x">
+      <a *ngIf="isOwner && editingIngredients" type="button" (click)="onEditCount()" class="waves-effect waves-light btn-small edit-count amber lighten-2 black-text"><i class="material-icons left">edit</i>Edytuj ilość</a>   
+    </div>
+    <div *ngIf="editingCount" class="card update-count-panel yellow lighten-4">
       <form #f="ngForm" (ngSubmit)="onSubmit(f)">
         <div class="input-field col s6">
             <select class="browser-default" name="unit" (change)="onUnitChange($event.target.value)" ngModel>
@@ -21,11 +28,7 @@
                 <label for="calories">Poprzednio: {{ingredient.calories}}</label>
               </div>
             </div>
-          <button type="submit" class="waves-effect waves-light btn light-green">Zaktualizuj ilość</button>
+          <button type="submit" class="waves-effect waves-light btn light-green update-count">Zaktualizuj ilość</button>
       </form>
     </div>
-    <input *ngIf="isOwner" type="button" (click)="onDetachIngredient(ingredient)" class="waves-effect waves-light btn-small" value="X">
-    <input type="button" (click)="onEditCount()" class="waves-effect waves-light btn-small" value="Edytuj ilość" *ngIf="editingIngredients">
-  </div>
 </div>
-<hr>

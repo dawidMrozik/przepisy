@@ -1,4 +1,26 @@
-<app-navbar [isLogged]="isLogged" [userDetailsId]="userDetailsId" [userDetails]="userDetails"></app-navbar>
-<div class="container">
-    <router-outlet></router-outlet>
-</div>
+<header>
+    <app-navbar [isLogged]="isLogged" [userDetailsId]="userDetailsId" [userDetails]="userDetails" [userId]="userId"></app-navbar>
+</header>
+<main>
+    <div class="container">
+        <router-outlet></router-outlet>
+    </div>
+</main>
+<footer class="page-footer amber darken-3">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">przepisy.pl</h5>
+          <p class="grey-text text-lighten-4">Podziel się swoimi przepisami.</p>
+        </div>
+        <div class="col l4 offset-l2 s12">
+
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      2018 Dawid Mrozik i Dawid Łakomiec
+      </div>
+    </div>
+  </footer>

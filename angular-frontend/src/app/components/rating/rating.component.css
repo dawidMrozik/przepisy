@@ -1,8 +1,21 @@
 .rate {
     width: 55px;
+    height: 2.5rem;
+    float: left;
 }
 
 .avg-rate {
     align-content: center;
     font-size: 0.75em;
+    clear: both;
+}
+
+.rate-btn {
+    float: right;
+    height: 2.5rem;
+}
+
+.rate-panel {
+    margin-top: 40px;
+    margin-right: 10px;
 }

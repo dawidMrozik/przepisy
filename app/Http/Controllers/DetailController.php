@@ -7,15 +7,14 @@ class DetailController extends Controller
     public function postDetail(Request $request)
     {
         $Detail = new Detail();
-        $Detail->calories = $request->input('amount');
-        $Detail->height = $request->input('unit');
-        $Detail->weight = $request->input('ingredient_id');
+        $Detail->calories = $request->input('calories');
+        $Detail->height = $request->input('height');
+        $Detail->weight = $request->input('weight');
         $Detail->age = $request->input('age');
         $Detail->carbs = $request->input('carbs');
         $Detail->protein = $request->input('protein');
         $Detail->fat = $request->input('fat');
         $Detail->date = $request->input('date');
-        $Detail->user_id = $request->input('user_id');
         $Detail->save();
         return response()->json(['Detail' => $Detail], 201);
     }

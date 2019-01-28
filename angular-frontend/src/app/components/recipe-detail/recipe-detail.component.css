@@ -8,13 +8,57 @@
     color: #424242;
     font-family: 'Ranga', cursive;
     font-size: 4em;
+    margin-bottom: 0px;
 }
 
 .recipe-dates {
+    margin-top: 0px;
     font-size: 0.75em;
     color: #777;
 }
 
-.date-update {
-    
+.description {
+    font-size: 1em;
+    font-style: italic;
+}
+
+.calories {
+    font-size: 0.3em;
+}
+
+.author-name {
+    color: #777;
+    font-size: 0.8em;
+}
+
+.owner-msg {
+    font-size: 0.8em;
+}
+
+.edit-panel {
+    margin-top: 10px;
+}
+
+.edit-button {
+    font-size: 1rem;
+}
+
+.new-ingredients-panel {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.new-ingredient {
+    margin-right: 10px;
+}
+
+.edit-buttons-panel {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+.add-btn {
+    border: none;
+    background-color: white;
 }

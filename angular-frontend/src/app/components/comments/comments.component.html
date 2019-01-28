@@ -1,2 +1,5 @@
-<a [routerLink]="[ '/przepis/komentarz/nowy', recipeId ]" class="waves-effect waves-light btn-small">Skomentuj</a>
-<app-comment *ngFor="let comment of comments" [comment]="comment" [userId]="userId"></app-comment>
+<div class="comments-panel">
+    <p *ngIf="comments?.length == 0">Nie ma jeszcze żadnych komentarzy. Bądź pierwszy!</p>
+    <a [routerLink]="[ '/przepis/komentarz/nowy', recipeId ]" class="waves-effect waves-light btn-small yellow darken-2">Skomentuj</a>
+    <app-comment *ngFor="let comment of comments" [comment]="comment" [userId]="userId"></app-comment>
+</div>

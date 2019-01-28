@@ -110,6 +110,10 @@ Route::delete('/user/{id}', [
 Route::get('/user/{id}/details', [
     'uses' => 'UserController@getUserDetails'
 ]);
+
+Route::put('/user/{id}/detail', [
+    'uses' => 'UserController@updateDetails'
+]);
 // |--------------------------------------------------------------------------
 // | Users Routes End
 // |--------------------------------------------------------------------------

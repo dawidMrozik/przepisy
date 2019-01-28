@@ -9,8 +9,8 @@ export class AuthService {
 
     }
 
-    signup(name: String, email: String, password: String) {
-        return this.http.post('http://przepisy.test/api/user', {name: name, email: email, password: password},
+    signup(name: String, email: String, password: String, detail_id: number) {
+        return this.http.post('http://przepisy.test/api/user', {name: name, email: email, password: password, detail_id: detail_id},
         {headers: new HttpHeaders({'X-Requested-With': 'XMLHttpRequest'})});
     }
 
@@ -47,5 +47,9 @@ export class AuthService {
 
     getUserById(id: number) {
         return this.http.get('http://przepisy.test/api/user/' + id);
+    }
+
+    updateDetails(user_id: number, detail_id: number) {
+        return this.http.put('http://przepisy.test/api/user/' + user_id + '/detail', {detail_id: detail_id}, {headers: new HttpHeaders({'X-Requested-With': 'XMLHttpRequest'})});
     }
 }

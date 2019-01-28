@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, ComponentFactoryResolver } from '@angular/core';
 import * as M from 'materialize-css';
 import { UserDetailsService } from 'src/app/services/user-details.service';
 import { UserDetails } from 'src/app/models/user-details.interface';
@@ -13,6 +13,7 @@ export class NavbarComponent implements OnInit, OnChanges {
   @Input() isLogged;
   @Input() userDetailsId;
   @Input() userDetails: UserDetails;
+  @Input() userId: number;
   editedUserDetails: UserDetails;
   editingUserDetails: boolean = false;
   editAgeValue: number;
@@ -27,8 +28,10 @@ export class NavbarComponent implements OnInit, OnChanges {
   percentsInt: number;
   userName: string;
   userEmail: string;
+  tmp_detailsID: number;
 
-  constructor(private userDetailsService: UserDetailsService, private authService: AuthService) {}
+  constructor(private userDetailsService: UserDetailsService, private authService: AuthService) {
+  }
 
   ngOnInit() {
     document.addEventListener('DOMContentLoaded', function() {
@@ -36,17 +39,19 @@ export class NavbarComponent implements OnInit, OnChanges {
       var instances = M.Sidenav.init(elems);
     });
 
-    this.authService.getUser()
-      .subscribe(
-        (response: Response) => {
-          this.userName = response['User'].name;
-          this.userEmail = response['User'].email
-        }
-      )
+    if(this.isLogged) {
+      this.authService.getUser()
+        .subscribe(
+          (response: Response) => {
+            this.userName = response['User'].name;
+            this.userEmail = response['User'].email;
+          }
+        )
+    }
   }
 
   ngOnChanges(): void {
-    this.calculateEatenCalories();
+    if(this.userDetails) this.calculateEatenCalories();
   }
 
   onLogout() {
@@ -72,7 +77,31 @@ export class NavbarComponent implements OnInit, OnChanges {
   }
 
   onSave() {
-    this.userDetailsService.updateDetails(this.userDetails.id, this.editCaloriesValue, this.editCaloriesEatenValue, this.editWeightValue, this.editHeightValue, this.editAgeValue, this.editCarbsValue, this.editProteinValue, this.editFatValue)
+    if(this.userDetails.id == 1){
+      this.userDetailsService.addDetails(this.editCaloriesValue, this.editCaloriesEatenValue, this.editWeightValue, this.editHeightValue, this.editAgeValue, this.editCarbsValue, this.editProteinValue, this.editFatValue)
+        .subscribe(
+          (response: Response) => {
+            this.tmp_detailsID = response['Detail']['id']
+            this.editedUserDetails = response['Detail'];
+            console.log("Nowe szczegóły dodane z ID " + this.tmp_detailsID)
+          },
+          (error) => console.log(error),
+          () => {
+            this.authService.updateDetails(this.userId, this.tmp_detailsID)
+              .subscribe(
+                (response: Response) => {
+                  console.log("Zaktualizowano szczegóły użytkownika: " + response['User'])
+                }
+              ),
+              (error) => console.log(error),
+              () => {
+                location.reload();
+                this.calculateEatenCalories();
+              }
+          }
+        )
+    } else {
+      this.userDetailsService.updateDetails(this.userDetails.id, this.editCaloriesValue, this.editCaloriesEatenValue, this.editWeightValue, this.editHeightValue, this.editAgeValue, this.editCarbsValue, this.editProteinValue, this.editFatValue)
       .subscribe(
         (response: Response) => {
           this.editedUserDetails = response['Detail'];
@@ -85,16 +114,17 @@ export class NavbarComponent implements OnInit, OnChanges {
           this.editingUserDetails = false;
         }
       )
+    }
   }
 
   calculateEatenCalories() {
-    if(this.userDetails.caloriesEaten == 0) {
-      this.percents = 0;
-      this.percentsInt = 0;
+      if(this.userDetails.caloriesEaten == 0) {
+        this.percents = 0;
+        this.percentsInt = 0;
+      }
+      else {
+        this.percents = Number(((this.userDetails.caloriesEaten / this.userDetails.calories) * 100).toFixed(2));
+        this.percentsInt = Math.floor(this.percents);
+      }
     }
-    else {
-      this.percents = Number(((this.userDetails.caloriesEaten / this.userDetails.calories) * 100).toFixed(2));
-      this.percentsInt = Math.floor(this.percents);
-    }
-  }
 }

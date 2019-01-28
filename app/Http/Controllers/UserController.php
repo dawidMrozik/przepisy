@@ -1,9 +1,11 @@
 <?php
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Detail;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use JWTAuth;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -13,17 +15,27 @@ class UserController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required'
         ]);
-        
-        // Role i detale do implementacji
+
+        // $Detail = new Detail();
+        // $Detail->calories = 0;
+        // $Detail->height = 0;
+        // $Detail->weight = 0;
+        // $Detail->age = 0;
+        // $Detail->carbs = 0;
+        // $Detail->protein = 0;
+        // $Detail->fat = 0;
+        // $Detail->date = Carbon\Carbon::now();
+        // $Detail->save();
+
         $user = new User([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
             'role_id' => 2,
-            'detail_id' => 1
         ]);
 
         $user->save();
+
         return response()->json([
             'message' => 'Użytkownik dodany pomyślnie!'
         ], 201);
@@ -102,5 +114,17 @@ class UserController extends Controller
           'UserDetails' => $User
         ];
         return response()->json($res, 200);
+    }
+
+    public function updateDetails(Request $request, $id)
+    {
+        $User = User::find($id);
+        if (!$User) {
+            return response()->json(['message' => 'Użytkownik nie znaleziony'], 404);
+        }
+
+        $User->detail_id = $request->input('detail_id');
+        $User->save();
+        return response()->json(['User' => $User], 200);
     }
 }

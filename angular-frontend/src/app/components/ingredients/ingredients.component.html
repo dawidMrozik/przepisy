@@ -1,5 +1,4 @@
-<h2>Kalorie przepisu: {{recipeCalories}}</h2>
-<h1>Składniki:</h1>
+<h6>Składniki:</h6>
 <app-ingredient 
     *ngFor="let ingredient of ingredients"
     [ingredient]="ingredient"
@@ -8,3 +7,6 @@
     [recipeCalories]="recipeCalories"
     [isOwner]="isOwner">
 </app-ingredient>
+<p *ngIf="recipeCalories >= 700" class="center-align deep-orange-text">{{ recipeCalories }}kcal</p>
+<p *ngIf="recipeCalories < 700 && recipeCalories >= 400" class="center-align">{{ recipeCalories }}kcal</p>
+<p *ngIf="recipeCalories < 400" class="center-align light-green-text">{{ recipeCalories }}kcal</p>

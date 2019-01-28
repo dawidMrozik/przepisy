@@ -13,7 +13,7 @@ export class IngredientService {
   }
 
   getRecipeIngredients(recipeId: number) {
-    return this.http.get('http://przepisy.test/api/recipe/' + recipeId + '/ingredients?token=' + this.token);
+    return this.http.get('http://przepisy.test/api/recipe/' + recipeId + '/ingredients?token=' + this.token) 
   }
 
   getIngredients() {

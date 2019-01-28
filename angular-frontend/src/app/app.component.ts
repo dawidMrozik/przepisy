@@ -13,6 +13,7 @@ import { UserDetailsService } from './services/user-details.service';
 export class AppComponent {
   isLogged: Boolean;
   userEmail: String;
+  userId: number;
   userDetailsId: number;
   loadNav: boolean = false;
   userDetails: UserDetails;
@@ -21,7 +22,8 @@ export class AppComponent {
 
   ngOnInit() {
     M.AutoInit();
-    this.getUserData();
+    this.checkIfLogged();
+    if(this.isLogged) this.getUserData();
     this.loadNav = true;
   }
 
@@ -42,6 +44,7 @@ export class AppComponent {
      .subscribe(
        (response: Response) => {
          this.userEmail = response['User'].email;
+         this.userId = response['User'].id;
          this.userDetailsId = response['User'].detail_id;
        },
        (error) => console.log(error),

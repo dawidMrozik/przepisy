@@ -38,7 +38,7 @@ class User extends Authenticatable
 
     public function detail()
     {
-        return $this->hasOne('App\Models\Detail');
+        return $this->belongsTo('App\Models\Detail');
         
     }
     

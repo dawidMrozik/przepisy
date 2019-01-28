@@ -1,0 +1,53 @@
+.ingredient-panel {
+    box-sizing: content-box;
+    padding: 15px;
+    position: relative;
+    margin-bottom: 2vh;
+    border: 1px solid #ebe8e1;
+    background-color: #fcf9f2;
+    border-radius: 4px;
+}
+
+.ingredient-name {
+    font-size: 1em;
+}
+
+.ingredient-kcal {
+    color: #666;
+    font-style: italic;
+    position: absolute;
+    bottom: 5px;
+    right: 15px;
+}
+
+.ingredient-count {
+    font-size: 0.75em;
+}
+
+.ingredient-delete {
+    border: none;
+    background: #fcf9f2;
+    color: #b00;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+
+.ingredient-delete:hover {
+    background-color: #ebe8e1;
+}
+
+.edit-count {
+    margin-top: 10px;
+
+}
+
+.update-count {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+.update-count-panel {
+    padding-bottom: 50px;
+}

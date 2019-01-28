@@ -5,9 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { IngredientService } from 'src/app/services/ingredient.service';
 import { Ingredient } from 'src/app/models/ingredient.interface';
-import { __core_private_testing_placeholder__ } from '@angular/core/testing';
 import { IngredientsComponent } from '../ingredients/ingredients.component';
 import { Rating } from 'src/app/models/rating.interface';
+import * as M from 'materialize-css';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -24,6 +24,7 @@ export class RecipeDetailComponent implements OnInit {
   caloriesEditValue: number;
   isOwner: Boolean;
   userId: number;
+  userName: String;
   loadComments: boolean = false;
   loadIngredients: boolean = false;
   loadComponent: boolean = false;
@@ -54,6 +55,7 @@ export class RecipeDetailComponent implements OnInit {
           .subscribe(
             (response: Response) => {
               this.userId = response['User']['id'];
+              this.userName = response['User']['name'];
               this.checkIfOnwer();
             },
             error => console.log(error),
@@ -82,7 +84,8 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   onEditIngredients() {
-    this.editingIngredients = true;
+    if(this.editingIngredients) this.editingIngredients = false;
+    else this.editingIngredients = true;
     this.ingredientService.getRecipeIngredients(this.recipeDetails.id)
       .subscribe(
         (response: Response) => {
@@ -132,12 +135,14 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   onDelete() {
-    this.recipeService.deleteRecipe(this.recipeDetails.id)
-      .subscribe(
-        () => {
-          this.router.navigate(['/']);
-        }
-      );
+    if(confirm("Na pewno chcesz usunąć ten przepis?")) {
+      this.recipeService.deleteRecipe(this.recipeDetails.id)
+        .subscribe(
+          () => {
+            this.router.navigate(['/']);
+          }
+        );
+    }
   }
 
   onAddExistingIngredient() {
@@ -155,8 +160,9 @@ export class RecipeDetailComponent implements OnInit {
     this.ingredients.splice(index, 1);
   }
 
-  onDeleteEditIngredient(index: number) {
+  onDeleteEditIngredient(ingredient: Ingredient, index: number) {
     this.recipeIngredients.splice(index, 1);
+    this.ingredients.push(ingredient);
   }
 
 } 

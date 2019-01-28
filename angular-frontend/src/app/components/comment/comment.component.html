@@ -1,14 +1,19 @@
-<p>
-  {{ comment.content }}
-</p>
-<div *ngIf="isOwner" class="right">
-  <div *ngIf="editing">
-    <textarea [(ngModel)]="contentEditValue" class="materialize-textarea"></textarea>
-    <a (click)="onUpdate()" class="waves-effect waves-light btn-small">Zapisz</a>
-    <a (click)="onCancel()" class="waves-effect waves-light btn-small">Anuluj</a>
+<blockquote>
+  <p class="comment-content">
+    {{ comment.content }}
+  </p>
+  <p class="comment-author">
+      - {{ commentOwnerName }}
+  </p>
+  <div *ngIf="isOwner">
+    <div *ngIf="editing">
+      <textarea [(ngModel)]="contentEditValue" class="materialize-textarea"></textarea>
+      <a (click)="onUpdate()" class="waves-effect waves-light btn-small comment-edit">Zapisz</a>
+      <a (click)="onCancel()" class="waves-effect waves-light btn-small comment-edit">Anuluj</a>
+    </div>
+    <div *ngIf="!editing">
+      <a (click)="onEdit()" class="btn-small comment-edit"><i class="material-icons">edit</i></a>
+      <a (click)="onDelete()" class="btn-small comment-edit"><i class="material-icons">delete</i></a>
+    </div>
   </div>
-  <div *ngIf="!editing">
-    <a (click)="onEdit()" class="waves-effect waves-light btn-small">Edytuj</a>
-    <a (click)="onDelete()" class="waves-effect waves-light btn-small">Usuń</a>
-  </div>
-</div>
+</blockquote>
